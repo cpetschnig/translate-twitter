@@ -25,7 +25,7 @@ t_search_uri = URI.parse(t_search_url)
 
 #json_result = JSON.parse(File.read("read_from_local_file"));
 json_result = JSON.parse(Net::HTTP.get(t_search_uri));
-p json_result
+#p json_result
 # structure of twitter response:
 
 #results: ...
