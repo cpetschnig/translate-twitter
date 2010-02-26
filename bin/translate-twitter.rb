@@ -39,6 +39,11 @@ json_result = JSON.parse(Net::HTTP.get(t_search_uri));
 
 tweets = json_result['results'].collect{|obj| Tweet.from_json(obj)}
 
+if tweets.empty?
+  `touch #{LOG_FILE}`   # leave a little trace
+  exit
+end
+
 # store latest tweet id
 f = File.open(TIMESTAMP_FILENAME, 'w')
 f.write(json_result['max_id'])
@@ -68,6 +73,8 @@ tweets.each do |tweet|
 
   tweet.translation = doc.xpath('.//mst:TranslateResult/text()', 'mst' => MS_TRANSLATE_SOAP_NS).to_s
 
+  `echo "\`date\`: translated #{tweet.url}" >> #{LOG_FILE}`
+
 end
 
 
@@ -84,6 +91,8 @@ tweets.reverse_each do |tweet|
   req.set_form_data({ 'status'=> tweet.translation[0,140] }, ';')
   res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
   #p res
+
+  `echo "\`date\`: tweeted translation of #{tweet.url} => #{res.code}" >> #{LOG_FILE}`
 
 end
 

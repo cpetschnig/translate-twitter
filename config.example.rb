@@ -2,19 +2,19 @@
 # http://github.com/cpetschnig/translate-twitter
 
 
-# R E A D
-# =======
+#  R E A D
+#  =======
 
 # translate the tweets from this account:
 TWITTER_MATZ_USERNAME = 'noble_foreigner'
 
 # save resources by storing the id of the latest tweet
-TIMESTAMP_FILENAME = File.join(File.dirname(__FILE__), 'latest_tweet')
+TIMESTAMP_FILENAME = File.join(File.dirname(__FILE__), "latest_tweet.#{TWITTER_MATZ_USERNAME}")
 
 
 
-# T R A N S L A T E
-# =================
+#  T R A N S L A T E
+#  =================
 
 # translation via http://www.microsofttranslator.com/
 MS_TRANSLATE_APP_ID = 'my_app_id_for_microsoft_translator'
@@ -42,10 +42,17 @@ MS_TRANSLATE_SOAP_BODY = %{<?xml version="1.0" encoding="UTF-8"?>
 
 
 
-# P U B L I S H
-# =============
+#  P U B L I S H
+#  =============
 
 # publish to this twitter account
 TWITTER_TARGET_USER = 'twitter_username'
 TWITTER_TARGET_PASSWD = 'twitter_password'
+
+
+
+
+# APPLICATION STUFF
+
+LOG_FILE = File.join(File.expand_path(File.dirname(__FILE__)), 'log', "#{Time.new.strftime('%Y-%d-%m')}.log")
 

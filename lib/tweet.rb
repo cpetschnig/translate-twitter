@@ -12,7 +12,7 @@ class Tweet
   #"source"=>"&lt;a href=&quot;http://foursquare.com&quot; rel=&quot;nofollow&quot;&gt;foursquare&lt;/a&gt;"}
 
   attr_accessor :text
-  attr_reader :translation
+  attr_reader :translation, :id, :from_user
   
   def self.from_json(hash)
   #p hash
@@ -35,6 +35,10 @@ class Tweet
   def to_s
     "Original:    #{@text}\n" +
     "Translation: #{@translation}"
+  end
+
+  def url
+    "http://twitter.com/#{@from_user}/status/#{@id}"
   end
 
   private
