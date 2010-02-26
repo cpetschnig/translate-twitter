@@ -25,7 +25,7 @@ t_search_uri = URI.parse(t_search_url)
 
 #json_result = JSON.parse(File.read("read_from_local_file"));
 json_result = JSON.parse(Net::HTTP.get(t_search_uri));
-
+p json_result
 # structure of twitter response:
 
 #results: ...
@@ -40,15 +40,17 @@ json_result = JSON.parse(Net::HTTP.get(t_search_uri));
 
 tweets = json_result['results'].collect{|obj| Tweet.from_json(obj)}
 
-if tweets.empty?
-  `touch #{LOG_FILE}`   # leave a little trace
-  exit
-end
-
 # store latest tweet id
 f = File.open(TIMESTAMP_FILENAME, 'w')
 f.write(json_result['max_id'])
 f.close
+
+
+exit if tweets.empty?
+#if tweets.empty?
+##  `touch #{LOG_FILE}`   # leave a little trace
+#  exit
+#end
 
 
 
@@ -73,6 +75,10 @@ tweets.each do |tweet|
   doc = Nokogiri::XML(t_res.body)
 
   tweet.translation = doc.xpath('.//mst:TranslateResult/text()', 'mst' => MS_TRANSLATE_SOAP_NS).to_s
+
+#  puts tweet.url
+#  puts tweet.text
+#  puts tweet.translation
 
   `echo "\`date\`: translated #{tweet.url}" >> #{LOG_FILE}`
 
