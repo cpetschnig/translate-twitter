@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
 require 'net/http'
 require 'open-uri'
 require 'uri'
