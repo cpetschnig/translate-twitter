@@ -20,18 +20,19 @@ since_id = File.exist?(TIMESTAMP_FILENAME) && File.read(TIMESTAMP_FILENAME)
 q_since = "&since_id=#{since_id}" if since_id
 
 
-t_search_url = "http://search.twitter.com/search.json?q=from:#{TWITTER_MATZ_USERNAME}#{q_since}"
+t_search_url = "http://search.twitter.com/search.json?q=from%3A#{TWITTER_MATZ_USERNAME}#{q_since}"
 t_search_uri = URI.parse(t_search_url)
 
-#json_result = JSON.parse(File.read("read_from_local_file"));
-json_result = JSON.parse(Net::HTTP.get(t_search_uri));
+#json_result = JSON.parse(File.read("read_from_local_file"))
+http_response = Net::HTTP.get(t_search_uri)
+json_result = JSON.parse(http_response)
 #p json_result
 # structure of twitter response:
 
 f = File.open(File.join(File.dirname(__FILE__), '..', 'log', "#{Time.new.strftime('%Y-%m-%d_%H-%M-%S')}_search.json"), 'a')
 f.write("// #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}\n")
 f.write("// #{t_search_url}\n")
-f.write(json_result)
+f.write(http_response)
 f.close
 
 #results: ...
@@ -45,6 +46,7 @@ f.close
 #query: from%3Ayukihiro_matz
 
 tweets = json_result['results'].collect{|obj| Tweet.from_json(obj)}
+
 
 # store latest tweet id
 f = File.open(TIMESTAMP_FILENAME, 'w')
