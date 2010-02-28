@@ -54,5 +54,5 @@ TWITTER_TARGET_PASSWD = 'twitter_password'
 
 # APPLICATION STUFF
 
-LOG_FILE = File.join(File.expand_path(File.dirname(__FILE__)), 'log', "#{Time.new.strftime('%Y-%d-%m')}.log")
+LOG_FILE = File.join(File.expand_path(File.dirname(__FILE__)), 'log', "#{Time.new.strftime('%Y-%m-%d')}.log")
 
