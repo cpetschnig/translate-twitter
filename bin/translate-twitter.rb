@@ -28,6 +28,12 @@ json_result = JSON.parse(Net::HTTP.get(t_search_uri));
 #p json_result
 # structure of twitter response:
 
+f = File.open("#{Time.new.strftime('%Y-%m-%d_%H:%M:%S')}_search.json}")
+f.write("// #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}\n")
+f.write("// #{t_search_url}\n")
+f.write(json_result)
+f.close
+
 #results: ...
 #max_id: 9619561014
 #since_id: 0
