@@ -48,17 +48,18 @@ f.close
 tweets = json_result['results'].collect{|obj| Tweet.from_json(obj)}
 
 
-# store latest tweet id
-f = File.open(TIMESTAMP_FILENAME, 'w')
-f.write(json_result['max_id'])
-f.close
-
-
 exit if tweets.empty?
 #if tweets.empty?
 ##  `touch #{LOG_FILE}`   # leave a little trace
 #  exit
 #end
+
+
+
+# store latest tweet id
+f = File.open(TIMESTAMP_FILENAME, 'w')
+f.write(json_result['max_id'])
+f.close
 
 
 
