@@ -1,14 +1,12 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'net/http'
+#require 'net/http'
 require 'open-uri'
-require 'uri'
-require 'json'
 require 'nokogiri'
 
-require File.join(File.dirname(__FILE__), '../lib/tweet')
 require File.join(File.dirname(__FILE__), '../config')
+require File.join(File.dirname(__FILE__), '../lib/twitter_search')
 
 
 
@@ -17,35 +15,15 @@ require File.join(File.dirname(__FILE__), '../config')
 
 # read latest tweet id
 since_id = File.exist?(TIMESTAMP_FILENAME) && File.read(TIMESTAMP_FILENAME)
-q_since = "&since_id=#{since_id}" if since_id
+
+tweets = Twitter::Search.from(TWITTER_MATZ_USERNAME, :since_id => since_id)
 
 
-t_search_url = "http://search.twitter.com/search.json?q=from%3A#{TWITTER_MATZ_USERNAME}#{q_since}"
-t_search_uri = URI.parse(t_search_url)
-
-#json_result = JSON.parse(File.read("read_from_local_file"))
-http_response = Net::HTTP.get(t_search_uri)
-json_result = JSON.parse(http_response)
-#p json_result
-# structure of twitter response:
-
-f = File.open(File.join(File.dirname(__FILE__), '..', 'log', "#{Time.new.strftime('%Y-%m-%d_%H-%M-%S')}_search.json"), 'a')
-f.write("// #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}\n")
-f.write("// #{t_search_url}\n")
-f.write(http_response)
-f.close
-
-#results: ...
-#max_id: 9619561014
-#since_id: 0
-#refresh_url: ?since_id=9619561014&q=from%3Ayukihiro_matz
-#next_page: ?page=2&max_id=9619561014&q=from%3Ayukihiro_matz
-#results_per_page: 15
-#page: 1
-#completed_in: 0.06933
-#query: from%3Ayukihiro_matz
-
-tweets = json_result['results'].collect{|obj| Tweet.from_json(obj)}
+#f = File.open(File.join(File.dirname(__FILE__), '..', 'log', "#{Time.new.strftime('%Y-%m-%d_%H-%M-%S')}_search.json"), 'a')
+#f.write("// #{Time.new.strftime('%Y-%m-%d %H:%M:%S')}\n")
+#f.write("// #{t_search_url}\n")
+#f.write(http_response)
+#f.close
 
 
 exit if tweets.empty?
@@ -58,7 +36,7 @@ exit if tweets.empty?
 
 # store latest tweet id
 f = File.open(TIMESTAMP_FILENAME, 'w')
-f.write(json_result['max_id'])
+f.write(tweets.max_id)
 f.close
 
 
