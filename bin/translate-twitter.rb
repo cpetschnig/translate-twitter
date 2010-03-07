@@ -7,6 +7,8 @@ require 'nokogiri'
 
 require File.join(File.dirname(__FILE__), '../config')
 require File.join(File.dirname(__FILE__), '../lib/twitter_search')
+require File.join(File.dirname(__FILE__), '../lib/twitter_status')
+require File.join(File.dirname(__FILE__), '../lib/logger')
 
 
 
@@ -16,7 +18,8 @@ require File.join(File.dirname(__FILE__), '../lib/twitter_search')
 # read latest tweet id
 since_id = File.exist?(TIMESTAMP_FILENAME) && File.read(TIMESTAMP_FILENAME)
 
-tweets = Twitter::Search.from(TWITTER_MATZ_USERNAME, :since_id => since_id)
+#tweets = Twitter::Search.from(TWITTER_MATZ_USERNAME, :since_id => since_id)
+tweets = Twitter::Status.from(TWITTER_MATZ_USER_ID, :since_id => since_id)
 
 
 #f = File.open(File.join(File.dirname(__FILE__), '..', 'log', "#{Time.new.strftime('%Y-%m-%d_%H-%M-%S')}_search.json"), 'a')
@@ -32,7 +35,7 @@ exit if tweets.empty?
 #  exit
 #end
 
-
+#exit
 
 # store latest tweet id
 f = File.open(TIMESTAMP_FILENAME, 'w')

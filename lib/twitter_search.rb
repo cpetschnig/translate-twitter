@@ -20,7 +20,7 @@ module Twitter
       http_response = Net::HTTP.get(t_search_uri)
       json_result = JSON.parse(http_response)
 
-      tweet_array = json_result['results'].collect{|obj| Tweet.from_json(obj)}
+      tweet_array = json_result['results'].collect{|obj| Tweet.from_search_json(obj)}
 
       # add some more info to the result
       class << tweet_array
