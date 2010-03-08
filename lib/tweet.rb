@@ -58,13 +58,12 @@ class Tweet
 
   private
   def repair_translation!
-    # TODO: needs improvement!
-    # matz twittered "@nari3", which got translated to "@ nari 3"
-    # need to repair those cases
-
     # check for twitter account translations: '@username' might have become '@ username'
     @text.scan(/@[a-zA-Z0-9_]+/) do |match|
-      @translation.gsub!(%r{#{match[0,1]} #{match[1..-1]}}, match)
+      # the translator likes to break twitter usernames
+      # "@nari3" became "@ nari 3"
+      broken_username = match[1..-1].gsub(/(\d+)/, ' \1 ').strip
+      @translation.gsub!(%r{@ #{broken_username}}, match)
     end
   end
 

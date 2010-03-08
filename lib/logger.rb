@@ -1,9 +1,9 @@
 class Logger
   def self.info(msg)
-    write 'INFO', msg
+    #write 'INFO', msg
   end
   def self.debug(msg)
-    write 'DEBUG', msg
+    #write 'DEBUG', msg
   end
   def self.warn(msg)
     write 'WARN', msg
@@ -16,6 +16,6 @@ class Logger
   end
   private
   def self.write(type, msg)
-    puts "#{Time.new.strftime('%Y-%m-%d %H:%M:%S')}: #{type} #{msg}"
+    puts "#{Time.new.strftime('%Y-%m-%d %H:%M:%S')}: [#{type}] #{msg}"
   end
 end
