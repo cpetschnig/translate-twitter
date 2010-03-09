@@ -7,6 +7,7 @@
 
 # translate the tweets from this account:
 TWITTER_MATZ_USERNAME = 'noble_foreigner'
+TWITTER_MATZ_USER_ID = '48014477'
 
 # save resources by storing the id of the latest tweet
 TIMESTAMP_FILENAME = File.join(File.dirname(__FILE__), "latest_tweet.#{TWITTER_MATZ_USERNAME}")
