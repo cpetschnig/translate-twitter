@@ -47,9 +47,11 @@ module Twitter
       url = URI.parse(TWEET_JSON_URL)
       req = Net::HTTP::Post.new(url.path)
       req.basic_auth(username, password)
-      req.set_form_data({ 'status'=> text }, ';')
+      req.set_form_data({ 'status'=> text[0,140] }, ';')
+      #response = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
       Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
-  #p res
+      
+  #p response
 
   #`echo "\`date\`: tweeted translation of #{tweet.url} => #{res.code}" >> #{LOG_FILE}`
     end
