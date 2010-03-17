@@ -1,0 +1,25 @@
+<h1>Listing twitter_accounts</h1>
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Max</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @twitter_accounts.each do |twitter_account| %>
+  <tr>
+    <td><%= twitter_account.username %></td>
+    <td><%= twitter_account.since_id %></td>
+    <td><%= link_to 'Show', twitter_account %></td>
+    <td><%= link_to 'Edit', edit_twitter_account_path(twitter_account) %></td>
+    <td><%= link_to 'Destroy', twitter_account, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New twitter_account', new_twitter_account_path %>

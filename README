@@ -1,5 +1,10 @@
 == Translate Twitter
 
+My environment:
+
+* Ruby 1.8.7 p249
+* Rails 3.0.1 beta/Rails --pre
+
 === Install a new cron job:
 
   $> crontab -e

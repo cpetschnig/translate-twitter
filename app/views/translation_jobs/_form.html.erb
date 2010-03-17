@@ -1,0 +1,23 @@
+<% form_for(@translation_job) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :source_id %><br />
+    <%= f.select :source_id, TwitterAccount.all.map{|obj| [obj.username, obj.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :target_id %><br />
+    <%= f.select :target_id, TwitterAccount.all.map{|obj| [obj.username, obj.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :from_lang %><br />
+    <%= f.select :from_lang, MsLanguage::DATA %>
+  </div>
+  <div class="field">
+    <%= f.label :to_lang %><br />
+    <%= f.select :to_lang, MsLanguage::DATA %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
