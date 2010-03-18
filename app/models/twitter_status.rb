@@ -56,7 +56,7 @@ module Twitter
       Rails.logger.info("=> #{response.code} #{response.msg}")
       
       unless response.kind_of?(Net::HTTPSuccess)
-        Rails.error.info("Could not tweet! #{response.code} #{response.msg}: #{response.body}")
+        Rails.logger.error("Could not tweet! #{response.code} #{response.msg}: #{response.body}")
       end
   #p response
 
