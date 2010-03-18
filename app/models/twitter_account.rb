@@ -4,6 +4,8 @@ class TwitterAccount < ActiveRecord::Base
 
   attr_reader :new_tweets
 
+  before_validation :handle_empty_since_id
+
   def fetch_tweets
     @new_tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
     #@new_tweets.each{|tweet| tweet.user = self}    # I thought, rails would do this for me in the next line
@@ -31,7 +33,7 @@ class TwitterAccount < ActiveRecord::Base
     self.username
   end
 
-  def before_validation
+  def handle_empty_since_id
     self.since_id = nil if self.since_id && self.since_id.to_s.empty?
   end
 end
