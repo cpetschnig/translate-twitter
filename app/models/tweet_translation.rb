@@ -1,12 +1,9 @@
 class TweetTranslation < ActiveRecord::Base
   belongs_to :tweet
 
-  def before_save
-    repair_translation!
-  end
-
-  private
-  def repair_translation!
+  before_save :repair_translation
+  
+  def repair_translation
     # check for twitter account translations: '@username' might have become '@ username'
     self.tweet.text.scan(/@[a-zA-Z0-9_]+/) do |match|
       # the translator likes to break twitter usernames
