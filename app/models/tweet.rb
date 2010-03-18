@@ -6,6 +6,8 @@ class Tweet < ActiveRecord::Base
   #attr_accessor :text
   attr_reader :translation #, #:id, :from_user
 
+  before_validation :truncate_text_for_postgres
+
   def self.from_search_json(hash)
     #{"profile_image_url"=>"http://a1.twimg.com/profile_images/539825688/NAK_0146_normal.jpg",
     #"created_at"=>"Thu, 25 Feb 2010 02:27:24 +0000",
@@ -96,20 +98,10 @@ class Tweet < ActiveRecord::Base
     return '' if self.translations.nil? || self.translations.count == 0
     self.translations[0].text
   end
-  
-=begin
-  private
-  def repair_translation!
-    # check for twitter account translations: '@username' might have become '@ username'
-    @text.scan(/@[a-zA-Z0-9_]+/) do |match|
-      # the translator likes to break twitter usernames
-      # "@nari3" became "@ nari 3"
-      broken_username = match[1..-1].gsub(/(\d+)/, ' \1 ').strip
-      @translation.gsub!(%r{@ #{broken_username}}, match)
-    end
-  end
-=end
 
+  def truncate_text_for_postgres
+    self.text = self.text[0,255]
+  end
 end
 
 #
