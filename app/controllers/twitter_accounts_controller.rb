@@ -16,7 +16,7 @@ class TwitterAccountsController < ApplicationController
     @twitter_account = TwitterAccount.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'show', :layout => 'frontend' }
       format.xml  { render :xml => @twitter_account }
     end
   end
