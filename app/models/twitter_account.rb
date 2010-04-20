@@ -7,8 +7,11 @@ class TwitterAccount < ActiveRecord::Base
   before_validation :handle_empty_since_id
 
   def fetch_tweets
-    @new_tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
-    #@new_tweets.each{|tweet| tweet.user = self}    # I thought, rails would do this for me in the next line
+    tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
+
+    #  select those tweets, that are not yet stored in the database
+    @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil?}
+    
     self.tweets << @new_tweets
     self.save
   end
