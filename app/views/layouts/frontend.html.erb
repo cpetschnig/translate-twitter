@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Tweets: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
-  <!-- =# javascript_include_tag :defaults % -->
-  <%= csrf_meta_tag %>
+  <title>Twitter Translations :: <%= (@user && @user.username) || 'Index' %></title>
+  <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print" />
+  <!--[if lt IE 8]><link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection" /><![endif]-->
 </head>
 <body>
-
-<p class="notice"><%= notice %></p>
-
+<div class="container">
 <%= yield %>
-
+</div>
 </body>
 </html>

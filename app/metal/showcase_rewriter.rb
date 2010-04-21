@@ -6,7 +6,7 @@ class ShowcaseRewriter
     path_info = env['PATH_INFO'][1..-1]
 
     # use plain SQL for better speed
-    sql = 'SELECT username FROM twitter_accounts'
+    sql = %{SELECT "twitter_accounts"."username" FROM "twitter_accounts"}
     usernames = ActiveRecord::Base.connection.select_all(sql)
 
     #if TwitterAccount.all(:select => 'username').map{|ta| ta.username}.include? env['PATH_INFO']

@@ -1,4 +1,7 @@
 TranslateTwitter::Application.routes.draw do |map|
+
+  match 'showcase/:username' => 'showcase#show_user'
+
   resources :services
 
   resources :translation_jobs
@@ -12,6 +15,8 @@ TranslateTwitter::Application.routes.draw do |map|
 
   resources :twitter_accounts
 
+  root :to => 'showcase#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

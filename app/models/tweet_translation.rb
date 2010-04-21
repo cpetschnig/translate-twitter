@@ -2,6 +2,8 @@ class TweetTranslation < ActiveRecord::Base
   belongs_to :tweet
 
   before_save :repair_translation
+
+  validates_length_of :text, :maximum => 512
   
   def repair_translation
     # check for twitter account translations: '@username' might have become '@ username'

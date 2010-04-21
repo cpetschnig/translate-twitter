@@ -1,6 +1,7 @@
 class TwitterAccount < ActiveRecord::Base
 
   has_many :tweets, :foreign_key => 'user_id', :order => 'twitter_id DESC'
+  has_many :latest_50_tweets, :class_name => 'Tweet', :foreign_key => 'user_id', :order => 'twitter_id DESC', :limit => 50
 
   attr_reader :new_tweets
 

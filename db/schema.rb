@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20100421081122) do
   create_table "tweet_translations", :force => true do |t|
     t.integer  "tweet_id"
     t.integer  "service_id"
-    t.string   "text"
+    t.string   "text",       :limit => 512
     t.datetime "created_at"
     t.datetime "updated_at"
   end

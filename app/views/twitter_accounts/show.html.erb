@@ -9,7 +9,7 @@
 </p>
 
 <ol class="statuses" id="timeline">
-  <% @twitter_account.tweets.each_with_index do |tweet, index| %>
+  <% @twitter_account.latest_50_tweets.each_with_index do |tweet, index| %>
   <li id="status_<%= tweet.twitter_id %> " class="hentry status<%= ' latest-status' if index == 0 %>">
     <%= render :partial => 'tweets/show', :locals => {:tweet => tweet} %>
   </li>
