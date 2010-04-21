@@ -1,4 +1,7 @@
 class TwitterAccountsController < ApplicationController
+  
+  layout 'backend', :except => :fetch_from_twitter
+
   # GET /twitter_accounts
   # GET /twitter_accounts.xml
   def index
@@ -78,6 +81,18 @@ class TwitterAccountsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(twitter_accounts_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  # GET /twitter_accounts/fetch_from_twitter
+  def fetch_from_twitter
+    @user = Twitter::User.fetch(params[:user])
+    respond_to do |format|
+      if @user
+        format.html { render 'show_twitter' }
+      else
+        format.html { render :text => '<div>Twitter user was not found</div>', :status => :not_found }
+      end
     end
   end
 end

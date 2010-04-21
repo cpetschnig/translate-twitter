@@ -7,6 +7,9 @@ TranslateTwitter::Application.routes.draw do |map|
 
   resources :translations
 
+  match 'twitter_accounts/fetch_from_twitter.:format' => 'twitter_accounts#fetch_from_twitter',
+    :as => :fetch_user_from_twitter, :via => :get
+
   resources :twitter_accounts
 
   # The priority is based upon order of creation:

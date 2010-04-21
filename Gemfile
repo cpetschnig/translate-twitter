@@ -7,10 +7,11 @@ gem 'rails', '3.0.0.beta3'
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
-gem 'mysql'
+gem 'pg'
 gem 'json'
 gem 'nokogiri'
 gem 'ms-translator'
+gem 'constantrecord'
 
 ## Bundle the gems you use:
 # gem "bj"

@@ -1,0 +1,23 @@
+<div id="fetched_user_twitter_id" style="display: none;"><%= @user.twitter_id %></div>
+<div>
+  <img src="<%= @user.image_url %>" />
+  <div class="screen-name"><%= @user.screen_name %></div>
+  <ul class="about vcard entry-author">
+    <li>
+      <span class="label">Name</span>
+      <span class="fn"><%= @user.name %></span>
+    </li>
+    <% unless @user.location.nil? || @user.location.empty? %>
+    <li>
+      <span class="label">Location</span>
+      <span class="adr"><%= @user.location %></span>
+    </li>
+    <% end %>
+    <% unless @user.url.nil? || @user.url.empty? %>
+    <li>
+      <span class="label">Web</span>
+      <a class="url" target="_blank" href="<%= @user.url %>"><%= @user.url(:short) %></a>
+    </li>
+    <% end %>
+  </ul>
+</div>

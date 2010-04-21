@@ -9,10 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100315094549) do
+ActiveRecord::Schema.define(:version => 20100421081122) do
 
   create_table "ms_languages", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "services", :force => true do |t|
+    t.string   "name"
+    t.string   "settings"
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20100315094549) do
     t.datetime "tweets_fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "can_publish"
   end
 
 end
