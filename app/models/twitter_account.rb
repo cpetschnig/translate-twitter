@@ -12,16 +12,30 @@ class TwitterAccount < ActiveRecord::Base
 
     #  select those tweets, that are not yet stored in the database
     @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil?}
-    
-    self.tweets << @new_tweets
+
+    # the following line might fail on postgres with: "incomplete multibyte character"
+    #self.tweets << @new_tweets
+
+    @new_tweets.each do |new_tweet|
+      begin
+        self.tweets.insert(new_tweet)
+      rescue Exception => e
+        puts "#{e}: #{e.message}\nTweet: #{new_tweet.url}\n#{e.backtrace}"
+      end
+    end
+
     self.save
   end
 
   def translate(from, to)
     @new_tweets.each do |tweet|
-      translated = Microsoft::Translator(tweet.text, from, to)
-      tweet.translations << TweetTranslation.new(:service_id => 1, :text => translated)
-      tweet.save
+      begin
+        translated = Microsoft::Translator(tweet.text, from, to)
+        tweet.translations << TweetTranslation.new(:service_id => 1, :text => translated)
+        tweet.save
+      rescue Exception => e
+        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace}"
+      end
     end
   end
 
