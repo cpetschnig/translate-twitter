@@ -1,14 +1,20 @@
 <div class="span-24 last">Header</div>
-<div class="span-4">
-  <ul>
+<div class="span-5">
+  <ul class="account_list">
+    <li>
+      <img src="images/ruby.png" alt="Show all" class="tw_normal" />
+      <span class="screen_name">Japanese Rubyists</span>
+    </li>
     <% @users.each do |user| %>
     <li>
-      <%= user.username %>
+      <img src="<%= user.image_url %>" alt="http://twitter.com/<%= user.username %> " class="tw_normal" />
+      <span class="screen_name"><%= user.username %></span><br />
+      <%= user.real_name %>
     </li>
     <% end %>
   </ul>
 </div>
-<div class="span-16">
+<div class="span-15">
   <ul>
     <% @tweets.each do |tweet| %>
     <li>

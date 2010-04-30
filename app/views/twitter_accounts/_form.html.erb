@@ -14,12 +14,17 @@
     <%= f.label :username %><br />
     <%= f.text_field :username %>
     <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :image_url %>
     <%= button_to_function('Load', remote_function(:method => :get,
         :url => fetch_user_from_twitter_url(:format => :html),
         :complete => %{$('fetch_from_twitter').style.display = ''},
-        :success => %{$('fetch_from_twitter').innerHTML = request.responseText; $('twitter_account_user_id').value = $('fetched_user_twitter_id').innerHTML; $('twitter_account_submit').enable()},
+        :success => %{$('fetch_from_twitter').innerHTML = request.responseText; $('twitter_account_user_id').value = $('fetched_user_twitter_id').innerHTML; $('twitter_account_real_name').value = $('fetched_user_real_name').innerHTML; $('twitter_account_image_url').value = $('fetched_user_image_url').innerHTML; $('twitter_account_submit').enable()},
         :failure => %{$('fetch_from_twitter').innerHTML = 'An error occured. See logfile for details.'; $('twitter_account_submit').disable()},
         :with => %{'user=' + $('twitter_account_username').value} )) %>
+  </div>
+  <div class="field">
+    <%= f.label :real_name %><br />
+    <%= f.text_field :real_name %>
   </div>
   <div class="field">
     <%= f.label :can_publish, 'Account Type' %><br />

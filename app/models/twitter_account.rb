@@ -7,6 +7,9 @@ class TwitterAccount < ActiveRecord::Base
 
   before_validation :handle_empty_since_id
 
+  validates_length_of :image_url, :maximum => 128
+  validates_length_of :real_name, :maximum => 32
+
   def fetch_tweets
     tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
 
@@ -54,4 +57,11 @@ class TwitterAccount < ActiveRecord::Base
   def handle_empty_since_id
     self.since_id = nil if self.since_id && self.since_id.to_s.empty?
   end
+
+  class StaticAll
+    def username
+      "All"
+    end
+  end
+
 end

@@ -1,0 +1,21 @@
+img.tw_normal {
+  height: 48px;
+  width: 48px;
+  float: left;
+  padding-right: 6px;
+}
+
+ul.account_list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.account_list li {
+  clear: both;
+  height: 58px;
+}
+
+ul.account_list li span.screen_name {
+  font-weight: bold;
+}
+

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100421081122) do
+ActiveRecord::Schema.define(:version => 20100430194809) do
 
   create_table "ms_languages", :force => true do |t|
     t.string   "name"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(:version => 20100421081122) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "can_publish"
+    t.string   "image_url",         :limit => 128
+    t.string   "real_name",         :limit => 32
   end
 
 end
