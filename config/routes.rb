@@ -2,18 +2,22 @@ TranslateTwitter::Application.routes.draw do |map|
 
   match 'showcase/:username' => 'showcase#show_user'
 
-  resources :services
+  if File.exist?(File.join(Rails.root, 'AllowAdministration.txt'))
 
-  resources :translation_jobs
+    resources :services
 
-  resources :tweets
+    resources :translation_jobs
 
-  resources :translations
+    resources :tweets
 
-  match 'twitter_accounts/fetch_from_twitter.:format' => 'twitter_accounts#fetch_from_twitter',
-    :as => :fetch_user_from_twitter, :via => :get
+    resources :translations
 
-  resources :twitter_accounts
+    match 'twitter_accounts/fetch_from_twitter.:format' => 'twitter_accounts#fetch_from_twitter',
+      :as => :fetch_user_from_twitter, :via => :get
+
+    resources :twitter_accounts
+    
+  end
 
   root :to => 'showcase#index'
   
