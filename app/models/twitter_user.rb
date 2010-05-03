@@ -3,7 +3,8 @@ module Twitter
 
     USER_SHOW_JSON_URL = 'http://api.twitter.com/1/users/show/{{USERNAME}}.json'
 
-    attr_reader :screen_name, :twitter_id, :name, :location, :url, :image_url
+    attr_reader :screen_name, :twitter_id, :name, :location, :url, :image_url,
+      :followers_count
 
     def initialize(params)
       @screen_name = params['screen_name']
@@ -12,6 +13,7 @@ module Twitter
       @location = params['location']
       @url = params['url']
       @image_url = params['profile_image_url']
+      @followers_count = params['followers_count']
     end
 
     def self.fetch(username)

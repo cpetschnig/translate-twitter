@@ -21,7 +21,8 @@ class TwitterAccount < ActiveRecord::Base
 
     @new_tweets.each do |new_tweet|
       begin
-        self.tweets.insert(new_tweet)
+        new_tweet.user = self             #  this line ist needed!
+        self.tweets.insert(new_tweet)     #  insert won't set user!! This could be a beta bug
       rescue Exception => e
         puts "#{e}: #{e.message}\nTweet: #{new_tweet.url}\n#{e.backtrace}"
       end
@@ -56,12 +57,6 @@ class TwitterAccount < ActiveRecord::Base
 
   def handle_empty_since_id
     self.since_id = nil if self.since_id && self.since_id.to_s.empty?
-  end
-
-  class StaticAll
-    def username
-      "All"
-    end
   end
 
 end

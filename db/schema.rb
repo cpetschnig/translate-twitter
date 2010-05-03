@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20100430194809) do
     t.boolean  "can_publish"
     t.string   "image_url",         :limit => 128
     t.string   "real_name",         :limit => 32
+    t.integer  "followers"
   end
 
 end
