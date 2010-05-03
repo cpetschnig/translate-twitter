@@ -15,7 +15,6 @@
     <li class ="<%= odd ? 'odd' : 'even' %>">
       <div class="thumb">
       <% unless @user %>
-      <% p tweet %>
       <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
       <% end %>
       </div>
