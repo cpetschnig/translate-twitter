@@ -1,12 +1,3 @@
-.odd {
-  background-color: #ffe8e8;
-}
-
-.even {
-  background-color: #ffffff;
-}
-
-
 img.tw_normal {
   height: 48px;
   width: 48px;
@@ -17,8 +8,6 @@ img.tw_normal {
 img.tw_small {
   height: 32px;
   width: 32px;
-  /*float: left;*/
-  /*padding-right: 6px;*/
 }
 
 ul.account_list {

@@ -12,31 +12,7 @@
 </div>
 <div class="span-15">
   <ul class="tweet_list">
-    <% odd = false
-       @tweets.each do |tweet|
-         odd = odd == false %>
-    <!-- li class ="<%= odd ? 'odd' : 'even' %>">
-      <div class="thumb">
-      <% unless @user %>
-      <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
-      <% end %>
-      </div>
-      <div class="content">
-        <div class="timestamp" title="<%= tweet.tw_created_at %>"><%= time_ago_in_words(tweet.tw_created_at) %> ago</div>
-        <div class="original_tweet"><%= parse_tweet tweet.text %></div>
-        <% if tweet.translations.empty? %>
-        <span class="entry-content">--- translation failed (it's still BETA) ---</span>
-        <% else %>
-        <%   tweet.translations.each do |translation| %>
-        <span class="status-translation">
-          <span class="entry-content"><%= translation.text.nil? || translation.text.empty? ?
-            %{--- translation failed (it's still BETA) ---} : parse_tweet(translation.text) %></span>
-        </span>
-        <%   end
-           end %>
-      </div>
-      <div class="clear"></div>
-    </li -->
+    <% @tweets.each do |tweet| %>
     <li>
       <div class="timestamp" title="<%= tweet.tw_created_at %>"><%= time_ago_in_words(tweet.tw_created_at) %> ago</div>
       <div class="original"><%= parse_tweet tweet.text %></div>
@@ -54,11 +30,9 @@
           %{--- translation failed (it's still BETA) ---} : parse_tweet(translation.text) %></div>
         <% end
          end %>
-      <% unless @user %>
       <div class="thumb">
-      <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
+        <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
       </div>
-      <% end %>
     </li>
     <% end %>
   </ul>
