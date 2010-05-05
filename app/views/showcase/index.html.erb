@@ -15,14 +15,14 @@
     <% odd = false
        @tweets.each do |tweet|
          odd = odd == false %>
-    <li class ="<%= odd ? 'odd' : 'even' %>">
+    <!-- li class ="<%= odd ? 'odd' : 'even' %>">
       <div class="thumb">
       <% unless @user %>
       <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
       <% end %>
       </div>
-        <div class="content">
-        <div class="timestamp" title="<%= tweet.tw_created_at %>"><%= tweet.tw_created_at.strftime('%Y-%m-%d %H:%M:%S') %></div>
+      <div class="content">
+        <div class="timestamp" title="<%= tweet.tw_created_at %>"><%= time_ago_in_words(tweet.tw_created_at) %> ago</div>
         <div class="original_tweet"><%= parse_tweet tweet.text %></div>
         <% if tweet.translations.empty? %>
         <span class="entry-content">--- translation failed (it's still BETA) ---</span>
@@ -36,9 +36,33 @@
            end %>
       </div>
       <div class="clear"></div>
+    </li -->
+    <li>
+      <div class="timestamp" title="<%= tweet.tw_created_at %>"><%= time_ago_in_words(tweet.tw_created_at) %> ago</div>
+      <div class="original"><%= parse_tweet tweet.text %></div>
+      <!-- http://blueprintcss.org/demos/tabs.html -->
+      <!-- ul class="tabs" style="padding: 2px 2px 2px 48px">
+        <li><a href="#" onclick="return false;" class="selected">Microsoft Translator</a></li>
+        <li><a href="#" onclick="return false;">Google Translate</a></li>
+        <li><a href="#" onclick="return false;">more</a></li>
+      </ul -->
+      <% if tweet.translations.empty? %>
+      <div class="translation">--- translation failed (it's still BETA) ---</div>
+      <% else %>
+        <% tweet.translations.each do |translation| %>
+      <div class="translation"><%= translation.text.nil? || translation.text.empty? ?
+          %{--- translation failed (it's still BETA) ---} : parse_tweet(translation.text) %></div>
+        <% end
+         end %>
+      <% unless @user %>
+      <div class="thumb">
+      <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
+      </div>
+      <% end %>
     </li>
     <% end %>
   </ul>
+  <%#= will_paginate @tweets %>
 </div>
 <div class="span-4 last">Right Sidebar</div>
 <div class="span-24 last">

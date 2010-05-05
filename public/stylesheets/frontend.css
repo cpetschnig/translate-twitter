@@ -83,46 +83,48 @@ ul.account_list li span.screen_name {
 }
 
 
+
 ul.tweet_list {
   list-style-type: none;
   padding-left: 0;
   margin-right: 0;
-  margin-left: 7px;
+  margin-left: 15px;
   /*border: 1px solid black;*/
   /*position: relative;*/
   /*z-index: -1;*/
 }
 
 ul.tweet_list li {
-  /*position: relative;*/
-  /*z-index: 1;*/
-  padding: 2px;
+/*  float: left;
+  height: 100%;*/
+  position: relative;
+  padding: 2px 0 5px 2px;
+}
+
+ul.tweet_list li div.timestamp {
+  font-size: 80%;
+  color: #909090;
+  padding-left: 50px;
+}
+
+ul.tweet_list li div.original {
+  font-size: 121%;
+  background-color: #FFBBBB;
+  padding: 2px 2px 2px 48px;
 }
 
 ul.tweet_list li div.thumb {
-  /*font-size: 121%;*/
-  /*color: #aaaaaa;*/
-  float: left;
-  height: 100%;
+  position: absolute;
+  top: 0;
   padding: 2px;
+  margin: 9px 0 0 3px;
 }
 
-ul.tweet_list li div.content {
-  /*font-size: 121%;*/
-  /*color: #aaaaaa;*/
-  float: left;
-  /*height: 100%;*/
-  width: 527px;
-  padding: 0 8px;
+ul.tweet_list li div.thumb img {
+  border: 2px white solid;
 }
 
-ul.tweet_list li div.content div.timestamp {
-  font-size: 80%;
-  color: #aaaaaa;
-}
-
-ul.tweet_list li div.content div.original_tweet {
-  font-size: 121%;
-  /*color: #aaaaaa;*/
+ul.tweet_list li div.translation {
+  padding: 2px 2px 2px 48px;
 }
 
