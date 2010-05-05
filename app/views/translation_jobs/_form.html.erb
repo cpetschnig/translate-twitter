@@ -7,7 +7,7 @@
   </div>
   <div class="field">
     <%= f.label :target_id %><br />
-    <%= f.select :target_id, TwitterAccount.all.map{|obj| [obj.username, obj.id]} %>
+    <%= f.select :target_id, TwitterAccount.all.map{|obj| [obj.username, obj.id]}.unshift(['-', nil]) %>
   </div>
   <div class="field">
     <%= f.label :from_lang %><br />

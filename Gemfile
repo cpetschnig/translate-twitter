@@ -12,6 +12,7 @@ gem 'json'
 gem 'nokogiri'
 gem 'ms-translator'
 gem 'constantrecord'
+#gem 'will_paginate'
 
 ## Bundle the gems you use:
 # gem "bj"

@@ -2,12 +2,23 @@ class TranslationJob < ActiveRecord::Base
   belongs_to :source, :class_name => 'TwitterAccount'
   belongs_to :target, :class_name => 'TwitterAccount'
 
-  def self.run
+  validates :source, :presence => true
+  validates_numericality_of :target, :allow_nil => true, :greater_than => 0
+
+  def self.tweet_translation
     Microsoft::Translator.set_app_id(read_ms_app_id)
-    TranslationJob.all.each do |translation|
+    TranslationJob.all(:conditions => 'target_id IS NOT NULL').each do |translation|
       translation.source.fetch_tweets
       translation.source.translate(translation.from_lang, translation.to_lang)
       translation.target.tweet_translation(translation.source.new_tweets)
+    end
+  end
+
+  def self.fetch_and_translate
+    Microsoft::Translator.set_app_id(read_ms_app_id)
+    TranslationJob.all(:conditions => 'target_id IS NULL').each do |translation|
+      translation.source.fetch_tweets
+      translation.source.translate(translation.from_lang, translation.to_lang)
     end
   end
 
