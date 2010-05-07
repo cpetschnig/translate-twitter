@@ -1,8 +1,6 @@
 img.tw_normal {
   height: 48px;
   width: 48px;
-  float: left;
-  padding-right: 6px;
 }
 
 img.tw_small {
@@ -13,64 +11,51 @@ img.tw_small {
 ul.account_list {
   list-style-type: none;
   padding-left: 0;
-  margin-right: 0;
+  margin-top: 14px;
 }
 
 ul.account_list li {
-  clear: both;
-  /*height: 48px;*/
-  margin-right: 1px;
-  margin-bottom: 1px;
-  background-color: #e7e7e7;
-  border-top: 1px solid #aaaaaa;
-  border-right: 1px solid #aaaaaa;
+  position: relative;
+  padding: 2px 0 5px 2px;
+  height: 54px;
+  width: 222px;
 }
 
-ul.account_list li.active {
-  background-color: white;
-  border-width: 0;
-  /*border-color: black white black black;*/
-  /*border-style: solid;*/
-  /*border-width: 1px;*/
-  /*margin-right: 0;*/
-  /*border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;*/
-}
-
-ul.account_list li a {
+ul.account_list li a.name {
   color: #000000;
   text-decoration: none;
-  /*padding: 2px 2px;*/
-  padding: 2px;
-  height: 48px;
+  height: 42px;
   display: block;
+  background-color: #FFBBBB;
+  padding: 2px 2px 2px 70px;
 }
 
 ul.account_list li a:hover {
-  /*background-color: #dddddd;*/
-  /*text-decoration: underline;*/
-  color: #0000ee;
-  
-  /*border-color: #0000ee white #0000ee #0000ee;*/
-  /*border-style: solid;*/
-  /*border-width: 2px;*/
-  /*border: 1px solid #0000ee;*/
-  /*padding: 0;*/
+/*  text-decoration: underline;*/
 }
 
-ul.account_list li div {
-  color: #000000;
-  /*text-decoration: none;*/
-  padding: 2px 2px;
-  height: 48px;
-  /*display: block;*/
+ul.account_list li.active a.name {
+  background-color: #FFEEEE;
+  padding: 0 0 0 68px;
+  border: 2px solid #FFBBBB;
 }
+
+
 
 ul.account_list li span.screen_name {
   font-weight: bold;
 }
 
+
+ul.account_list li a.thumb {
+  position: absolute;
+  top: -6px;
+  left: 8px;
+}
+
+ul.account_list li a.thumb img {
+  border: 2px white solid;
+}
 
 
 ul.tweet_list {
@@ -78,14 +63,9 @@ ul.tweet_list {
   padding-left: 0;
   margin-right: 0;
   margin-left: 15px;
-  /*border: 1px solid black;*/
-  /*position: relative;*/
-  /*z-index: -1;*/
 }
 
 ul.tweet_list li {
-/*  float: left;
-  height: 100%;*/
   position: relative;
   padding: 2px 0 5px 2px;
 }

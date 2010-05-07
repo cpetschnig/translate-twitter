@@ -2,10 +2,11 @@
   <h1>Tweets and Translations from the Ruby core!</h1>
   <div style="margin-bottom:8px; margin-top:-20px;">Project state: far from Beta</div>
 </div>
-<div class="span-5" style="margin-right: 0">
+<div class="span-6" style="margin-right: 0">
   <ul class="account_list">
     <%= user_account_li(:show_all, controller.action_name == 'index') %>
     <% @users.each do |user| %>
+      <% active = @user && user.id == @user.id %>
       <%= user_account_li(user, @user && user.id == @user.id) %>
     <% end %>
   </ul>
@@ -38,7 +39,7 @@
   </ul>
   <%#= will_paginate @tweets %>
 </div>
-<div class="span-4 last">Right Sidebar</div>
+<div class="span-3 last">Right Sidebar</div>
 <div class="span-24 last">
   <div>Source code on GitHub: <a href="http://github.com/cpetschnig/translate-twitter">http://github.com/cpetschnig/translate-twitter</a></div>
   <div>Contact me on Twitter: @<a href="http://twitter.com/cpetschnig">cpetschnig</a></div>
