@@ -32,10 +32,20 @@ class TwitterAccount < ActiveRecord::Base
   end
 
   def translate(from, to)
+    ms_service_id = Service.find_by_symbol(:microsoft).id
+    google_service_id = Service.find_by_symbol(:google).id
+
     @new_tweets.each do |tweet|
       begin
-        translated = Microsoft::Translator(tweet.text, from, to)
-        tweet.translations << TweetTranslation.new(:service_id => 1, :text => translated)
+        ms_translated = Microsoft::Translator(tweet.text, from, to)
+        tweet.translations << TweetTranslation.new(:service_id => ms_service_id, :text => ms_translated)
+        tweet.save
+      rescue
+        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace}"
+      end
+      begin
+        google_translated = Translate.t(tweet.text, from, to)
+        tweet.translations << TweetTranslation.new(:service_id => google_service_id, :text => google_translated)
         tweet.save
       rescue Exception => e
         puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace}"

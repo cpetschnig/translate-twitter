@@ -27,4 +27,7 @@ class TranslationJob < ActiveRecord::Base
     yml_result = YAML::load(File.read(filename))
     yml_result['app_id']
   end
+
+  def self.batch_translation_for(service_symbol)
+  end
 end

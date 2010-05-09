@@ -102,6 +102,20 @@ class Tweet < ActiveRecord::Base
   def truncate_text_for_postgres
     self.text = self.text[0,255]
   end
+
+  def self.raw_translation_xml(service_symbol)
+    service = Service.find_by_symbol(service_symbol)
+    raise Service::NotFound unless service
+
+    #  select all tweets, that have no translation by the given service
+    tweet_ar = Tweet.all.select do |tweet|
+      tweet.translations.detect{|translation|
+        translation.service_id == service.id
+      }.nil?
+    end
+
+    tweet_ar.map{|tweet| {'id' => tweet.twitter_id, 'text' => tweet.text}}.to_xml
+  end
 end
 
 #
