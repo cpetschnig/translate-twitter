@@ -5,9 +5,9 @@ class TwitterAccountType < ConstantRecord::Base
 end
 
 class Service < ConstantRecord::Base
-  columns :name, :symbol
-  data [ 'Microsoft Translator', :microsoft ],
-       [ 'Google Translate',     :google    ]
+  columns :name, :symbol, :short
+  data [ 'Microsoft Translator', :microsoft, 'MS'     ],
+       [ 'Google Translate',     :google,    'Google' ]
 
   class NotFound < StandardError
   end

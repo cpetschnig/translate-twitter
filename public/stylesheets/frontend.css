@@ -97,3 +97,16 @@ ul.tweet_list li div.translation {
   padding: 2px 2px 2px 48px;
 }
 
+ul.tweet_list li div.translation span.service {
+  padding-right: 5px;
+  font-size: 80%;
+  font-weight: bold;
+  display: block;
+  width: 40px;
+  float: left;
+}
+
+/*  removing that later, I guess  */
+ul.tweet_list li div.translation span.service:after {
+  content: ":"
+}
