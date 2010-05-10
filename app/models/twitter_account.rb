@@ -36,20 +36,27 @@ class TwitterAccount < ActiveRecord::Base
     google_service_id = Service.find_by_symbol(:google).id
 
     @new_tweets.each do |tweet|
-      begin
-        ms_translated = Microsoft::Translator(tweet.text, from, to)
-        tweet.translations << TweetTranslation.new(:service_id => ms_service_id, :text => ms_translated)
-        tweet.save
-      rescue
-        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace}"
-      end
-      begin
-        google_translated = Translate.t(tweet.text, from, to)
-        tweet.translations << TweetTranslation.new(:service_id => google_service_id, :text => google_translated)
-        tweet.save
-      rescue Exception => e
-        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace}"
-      end
+
+      ms_translation = Microsoft::Translator(tweet.text, from, to)
+      tweet.store_translation(ms_translation, ms_service_id)
+
+      google_translation = Translate.t(tweet.text, from, to)
+      tweet.store_translation(google_translation, google_service_id)
+      
+#      begin
+#        ms_translated = Microsoft::Translator(tweet.text, from, to)
+#        tweet.translations << TweetTranslation.new(:service_id => ms_service_id, :text => ms_translated)
+#        tweet.save
+#      rescue Exception => e
+#        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace.join("\n")}"
+#      end
+#      begin
+#        google_translated = Translate.t(tweet.text, from, to)
+#        tweet.translations << TweetTranslation.new(:service_id => google_service_id, :text => google_translated)
+#        tweet.save
+#      rescue Exception => e
+#        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace.join("\n")}"
+#      end
     end
   end
 

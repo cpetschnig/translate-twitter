@@ -103,6 +103,14 @@ class Tweet < ActiveRecord::Base
     self.text = self.text[0,255]
   end
 
+  def store_translation(translation, service_id)
+    self.translations << TweetTranslation.new(:service_id => service_id, :text => translation)
+    self.save
+  rescue Exception => e
+    Rails.logger "#{e}: #{e.message}\nTweet: #{self.url}\n" +
+      "Translation by #{Service.find(service_id).name}: #{translation}\n#{e.backtrace.join("\n")}"
+  end
+
   def self.raw_translation_xml(service_symbol)
     service = Service.find_by_symbol(service_symbol)
     raise Service::NotFound unless service
