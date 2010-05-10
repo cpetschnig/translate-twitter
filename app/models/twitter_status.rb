@@ -20,7 +20,7 @@ module Twitter
 
       unless http_response.kind_of?(Net::HTTPSuccess)
         Rails.logger.error("Response: #{http_response.code} #{http_response.msg}\n#{http_response.body}")
-        return []
+        return [ [], since_id ]
       end
 
       #Tweet.from_status_json(http_response.body)
