@@ -27,9 +27,8 @@
       <div class="translation">--- translation failed (it's still BETA) ---</div>
       <% else %>
         <% tweet.translations.each do |translation| %>
-      <div class="translation"><% if translation.text.nil? || translation.text.empty? %>
-          --- translation failed (it's still BETA) ---
-          <% else %><span class="service"><%= Service.find(translation.service_id).short %></span><%= parse_tweet(translation.text) %><% end %></div>
+      <div class="translation"><% unless translation.text.nil? || translation.text.empty? %>
+          <span class="service" title="Translated by <%= Service.find(translation.service_id).name %>"><%= Service.find(translation.service_id).short %></span><%= parse_tweet(translation.text) %><% end %></div>
         <% end
          end %>
       <div class="thumb">

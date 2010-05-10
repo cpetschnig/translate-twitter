@@ -13,20 +13,31 @@ class TwitterAccount < ActiveRecord::Base
   def fetch_tweets
     tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
 
-    Rails.logger.info("Received #{tweets.count} new tweets from #{self.username}.") unless tweets.empty?
+    Rails.logger.info("== Received #{tweets.count} new tweets from #{self.username} ".ljust(80, '=')) unless tweets.empty?
 
     #  select those tweets, that are not yet stored in the database
     @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil?}
 
     # the following line might fail on postgres with: "incomplete multibyte character"
+    # therefore we individually add every tweet, so we don't lose the other tweets
+
     #self.tweets << @new_tweets
 
     @new_tweets.each do |new_tweet|
       begin
-        new_tweet.user = self             #  this line ist needed!
+        new_tweet.user = self             #  this line is needed!
         self.tweets.insert(new_tweet)     #  insert won't set user!! This could be a beta bug
+        new_tweet.save
       rescue Exception => e
-        puts "#{e}: #{e.message}\nTweet: #{new_tweet.url}\n#{e.backtrace}"
+        Rails.logger.error "#{e.message}\nTweet: #{new_tweet.url}\n#{e.backtrace.join("\n")}"
+        #Rails.logger.info(Marshal.dump(new_tweet).to_s)
+
+        text_temp = new_tweet.text
+        new_tweet.text = '*** failed to store string ***'
+        new_tweet.save
+        new_tweet.text = text_temp
+      rescue Exception => e
+        Rails.logger.error "#{e.message} (again!)\nTweet: #{new_tweet.url}\n#{e.backtrace.join("\n")}"
       end
     end
 
@@ -44,7 +55,7 @@ class TwitterAccount < ActiveRecord::Base
 
       google_translation = Translate.t(tweet.text, from, to)
       tweet.store_translation(google_translation, google_service_id)
-      
+
 #      begin
 #        ms_translated = Microsoft::Translator(tweet.text, from, to)
 #        tweet.translations << TweetTranslation.new(:service_id => ms_service_id, :text => ms_translated)
@@ -66,7 +77,7 @@ class TwitterAccount < ActiveRecord::Base
     new_tweets.sort do |a, b|
       a.twitter_id <=> b.twitter_id   # TODO: check order
     end.each do |tweet|
-      Twitter::Status.tweet(self.username, self.password, tweet.translated)
+      Twitter::Status.tweet(self.username, self.password, tweet.translated) unless tweet.translated.nil? || tweet.translated.empty?
     end
   end
 

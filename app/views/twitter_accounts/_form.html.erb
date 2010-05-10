@@ -31,16 +31,16 @@
     <%= f.label :can_publish, 'Account Type' %><br />
     <%= f.select :can_publish, TwitterAccountType.options_for_select(:value => :can_publish) %>
   </div>
-  <div class="field" style="display: none;">
+  <div class="field"<%= ' style="display: none;"' if @twitter_account.new_record? %>>
     <%= f.label :password %><br />
     <%= f.text_field :password %>
   </div>
-  <div class="field" style="display: none;">
+  <div class="field"<%= ' style="display: none;"' if @twitter_account.new_record? %>>
     <%= f.label :since_id %><br />
     <%= f.text_field :since_id %>
   </div>
   <div class="actions">
-    <%= f.submit :disabled => true %>
+    <%= f.submit :disabled => @twitter_account.new_record? %>
   </div>
   <div id="fetch_from_twitter" style="display: none;"></div>
 <% end %>

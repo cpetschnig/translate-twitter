@@ -44,7 +44,7 @@ module Twitter
         return "#{@url[0,38]}..."
       end
       
-      puts "WARNING: unknown `format` #{format} in Twitter::User#url"
+      Rails.logger.warn "WARNING: unknown `format` #{format} in Twitter::User#url"
       @url
     end
 

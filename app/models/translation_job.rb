@@ -16,7 +16,9 @@ class TranslationJob < ActiveRecord::Base
 
   def self.fetch_and_translate
     Microsoft::Translator.set_app_id(read_ms_app_id)
-    TranslationJob.all(:conditions => 'target_id IS NULL').each do |translation|
+    translations = TranslationJob.all(:conditions => 'target_id IS NULL')
+    #Rails.logger.info("Translating #{translations.map{|t| t.source.username}.join(', ')} for website only.")
+    translations.each do |translation|
       translation.source.fetch_tweets
       translation.source.translate(translation.from_lang, translation.to_lang)
     end

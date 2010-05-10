@@ -2,3 +2,8 @@ config.rb
 latest_tweet.*
 log
 nbproject
+AllowAdministration.txt*
+config/database.yml
+config/google-analytics.yml
+config/ms-translator.yml
+
