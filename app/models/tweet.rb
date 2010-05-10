@@ -107,7 +107,7 @@ class Tweet < ActiveRecord::Base
     self.translations << TweetTranslation.new(:service_id => service_id, :text => translation)
     self.save
   rescue Exception => e
-    Rails.logger "#{e}: #{e.message}\nTweet: #{self.url}\n" +
+    Rails.logger.error "#{e}: #{e.message}\nTweet: #{self.url}\n" +
       "Translation by #{Service.find(service_id).name}: #{translation}\n#{e.backtrace.join("\n")}"
   end
 

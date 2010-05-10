@@ -13,6 +13,8 @@ class TwitterAccount < ActiveRecord::Base
   def fetch_tweets
     tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
 
+    Rails.logger.info("Received #{tweets.count} new tweets from #{self.username}.") unless tweets.empty?
+
     #  select those tweets, that are not yet stored in the database
     @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil?}
 
