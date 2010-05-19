@@ -8,12 +8,15 @@
   <!--[if lt IE 8]><link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection" /><![endif]-->
   <!-- link rel="stylesheet" href="/stylesheets/blueprint/plugins/tabs/screen.css" type="text/css" media="screen" / -->
   <link rel="stylesheet" href="/stylesheets/frontend.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/dojo.xd.js"></script>
 </head>
 <body>
 <div class="container">
 <%= yield %>
 </div>
+<% if GOOGLE_ANALYTICS_ID %>
 <script type="text/javascript">var gaJsHost=(("https:"==document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='"+gaJsHost+"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script>
 <script type="text/javascript">try{var pageTracker=_gat._getTracker("<%= GOOGLE_ANALYTICS_ID %>");pageTracker._trackPageview();} catch(err) {}</script>
+<% end %>
 </body>
 </html>
