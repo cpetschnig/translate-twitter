@@ -1,3 +1,9 @@
+h1.header {
+  font-family: 'Lobster', arial, serif;
+  font-size: 48px;
+  text-shadow: 4px 4px 4px #aaa;
+}
+
 img.tw_normal {
   height: 48px;
   width: 48px;
