@@ -2,17 +2,21 @@
 source 'http://gemcutter.org'
 
 
-gem 'rails', '3.0.0.beta3'
+gem 'rails', '3.0.0'
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
-gem 'pg'
-gem 'json'
+#gem 'pg'
+gem 'mysql2'
+gem 'twitter'
+#gem 'json'
 gem 'nokogiri'
+gem 'jrails'
 gem 'ms-translator'
 gem 'sishen-rtranslate', :require => 'rtranslate'
 gem 'constantrecord'
+gem 'toffee'
 
 
 ## Bundle the gems you use:

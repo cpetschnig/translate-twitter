@@ -13,7 +13,7 @@ class ShowcaseController < ApplicationController
     end
   end
 
-  # GET /showcase/:username
+  # GET /:username
   def show_user
     @user = TwitterAccount.find_by_username(params[:username])
 
@@ -28,4 +28,10 @@ class ShowcaseController < ApplicationController
       format.xml  { render :xml => @showcase }
     end
   end
+
+  # GET /1234567
+  def show_tweet
+
+  end
+
 end

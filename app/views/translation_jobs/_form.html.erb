@@ -1,5 +1,15 @@
-<% form_for(@translation_job) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@translation_job) do |f| %>
+  <% if @translation_job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@translation_job.errors.count, "error") %> prohibited this translation_job from being saved:</h2>
+
+      <ul>
+      <% @translation_job.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :source_id %><br />

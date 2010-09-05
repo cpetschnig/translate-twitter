@@ -9,14 +9,22 @@ class TwitterAccount < ActiveRecord::Base
 
   validates_length_of :image_url, :maximum => 128
   validates_length_of :real_name, :maximum => 32
-
+  validates_length_of :consumer_key,    :maximum => 32, :allow_nil => true
+  validates_length_of :consumer_secret, :maximum => 64, :allow_nil => true
+  validates_length_of :access_token,    :maximum => 64, :allow_nil => true
+  validates_length_of :access_secret,   :maximum => 64, :allow_nil => true
+  
   def fetch_tweets
-    tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
+    #tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
+    result = Twitter.timeline(self.username, :since_id => self.since_id)
+
+    tweets = result.map{|obj| Tweet.from_status_json(obj)}
+    self.since_id = tweets.map{|tweet| tweet.twitter_id}.max
 
     Rails.logger.info("== Received #{tweets.count} new tweets from #{self.username} ".ljust(80, '=')) unless tweets.empty?
 
     #  select those tweets, that are not yet stored in the database
-    @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil?}
+    @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil? || true} # TODO: delete || true part!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # the following line might fail on postgres with: "incomplete multibyte character"
     # therefore we individually add every tweet, so we don't lose the other tweets
@@ -55,29 +63,22 @@ class TwitterAccount < ActiveRecord::Base
 
       google_translation = Translate.t(tweet.text, from, to)
       tweet.store_translation(google_translation, google_service_id)
-
-#      begin
-#        ms_translated = Microsoft::Translator(tweet.text, from, to)
-#        tweet.translations << TweetTranslation.new(:service_id => ms_service_id, :text => ms_translated)
-#        tweet.save
-#      rescue Exception => e
-#        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace.join("\n")}"
-#      end
-#      begin
-#        google_translated = Translate.t(tweet.text, from, to)
-#        tweet.translations << TweetTranslation.new(:service_id => google_service_id, :text => google_translated)
-#        tweet.save
-#      rescue Exception => e
-#        puts "#{e}: #{e.message}\nTweet: #{tweet.url}\nTranslation: #{tweet.translations.map{|t|t.text}.join("\n")}\n#{e.backtrace.join("\n")}"
-#      end
     end
   end
 
   def tweet_translation(new_tweets)
     new_tweets.sort do |a, b|
-      a.twitter_id <=> b.twitter_id   # TODO: check order
+      a.twitter_id <=> b.twitter_id
     end.each do |tweet|
-      Twitter::Status.tweet(self.username, self.password, tweet.translated) unless tweet.translated.nil? || tweet.translated.empty?
+      #Twitter::Status.tweet(self.username, self.password, tweet.translated) unless tweet.translated.nil? || tweet.translated.empty?
+      unless tweet.translated.nil? || tweet.translated.empty?
+        # http://luigimontanez.com/2010/rubyists-guide-twitter-oauth-dance/ was a good help
+        oauth = Twitter::OAuth.new(self.consumer_key, self.consumer_secret)
+        oauth.authorize_from_access(self.access_token, self.access_secret)
+
+        client = Twitter::Base.new(oauth)
+        client.update(tweet.translated)
+      end
     end
   end
 

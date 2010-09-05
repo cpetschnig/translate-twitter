@@ -1,6 +1,6 @@
 TranslateTwitter::Application.routes.draw do |map|
 
-  match 'showcase/:username' => 'showcase#show_user'
+  #match 'showcase/:username' => 'showcase#show_user'
 
   if File.exist?(File.join(Rails.root, 'AllowAdministration.txt'))
 
@@ -18,6 +18,10 @@ TranslateTwitter::Application.routes.draw do |map|
     resources :twitter_accounts
     
   end
+
+  match ':status_id' => 'showcase#show_tweet', :status_id => /\d+/
+
+  match ':username' => 'showcase#show_user'
 
   root :to => 'showcase#index'
   

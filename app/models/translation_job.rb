@@ -2,8 +2,8 @@ class TranslationJob < ActiveRecord::Base
   belongs_to :source, :class_name => 'TwitterAccount'
   belongs_to :target, :class_name => 'TwitterAccount'
 
-  validates :source, :presence => true
-  validates_numericality_of :target, :allow_nil => true, :greater_than => 0
+  validates :source_id, :presence => true
+  validates_numericality_of :target_id, :allow_nil => true, :greater_than => 0
 
   def self.tweet_translation
     Microsoft::Translator.set_app_id(read_ms_app_id)
