@@ -16,7 +16,9 @@ class TwitterAccount < ActiveRecord::Base
   
   def fetch_tweets
     #tweets, self.since_id = Twitter::Status.from(self.user_id, :since_id => self.since_id)
-    result = Twitter.timeline(self.username, :since_id => self.since_id)
+    options = {}
+    options[:since_id] = self.since_id if self.since_id
+    result = Twitter.timeline(self.username, options)
 
     tweets = result.map{|obj| Tweet.from_status_json(obj)}
     self.since_id = tweets.map{|tweet| tweet.twitter_id}.max
@@ -24,7 +26,7 @@ class TwitterAccount < ActiveRecord::Base
     Rails.logger.info("== Received #{tweets.count} new tweets from #{self.username} ".ljust(80, '=')) unless tweets.empty?
 
     #  select those tweets, that are not yet stored in the database
-    @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil? || true} # TODO: delete || true part!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    @new_tweets = tweets.select{|tweet| Tweet.find_by_twitter_id(tweet.twitter_id).nil?}
 
     # the following line might fail on postgres with: "incomplete multibyte character"
     # therefore we individually add every tweet, so we don't lose the other tweets
@@ -77,7 +79,7 @@ class TwitterAccount < ActiveRecord::Base
         oauth.authorize_from_access(self.access_token, self.access_secret)
 
         client = Twitter::Base.new(oauth)
-        client.update(tweet.translated)
+        client.update(tweet.translated[0,140])
       end
     end
   end
