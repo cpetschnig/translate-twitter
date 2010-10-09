@@ -19,17 +19,16 @@
     <%= button_to_function('Load', remote_function(:method => :get,
         :url => fetch_user_from_twitter_url(:format => :html),
         :complete => %{$('#fetch_from_twitter').css('display', '')},
-        :success => %{
-  $('#fetch_from_twitter').html(request);
-  $('#twitter_account_user_id').val($('#fetched_user_twitter_id').html());
-  $('#twitter_account_real_name').val($('#fetched_user_real_name').html());
-  $('#twitter_account_followers').val($('#fetched_user_followers').html());
-  $('#twitter_account_image_url').val($('#fetched_user_image_url').html());
-  $('#twitter_account_submit').attr('disabled', '')},
+        :success => %{$('#fetch_from_twitter').html(request);
+                      $('#twitter_account_user_id').val($('#fetched_user_twitter_id').html());
+                      $('#twitter_account_real_name').val($('#fetched_user_real_name').html());
+                      $('#twitter_account_followers').val($('#fetched_user_followers').html());
+                      $('#twitter_account_image_url').val($('#fetched_user_image_url').html());
+                      $('#twitter_account_submit').attr('disabled', '')},
         :failure => %{$('#fetch_from_twitter').html('An error occured. See logfile for details.');
-    $('#twitter_account_submit').attr('disabled', 'disabled')},
+                      $('#twitter_account_submit').attr('disabled', 'disabled')},
         :with => %{'user=' + $('#twitter_account_username').val()},
-	:data_type => 'xml')) %>
+      	:data_type => 'xml')) %>
   </div>
   <div class="field">
     <%= f.label :real_name %><br />
