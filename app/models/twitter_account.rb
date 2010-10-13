@@ -74,17 +74,15 @@ class TwitterAccount < ActiveRecord::Base
   end
 
   def tweet_translation(new_tweets)
-    new_tweets.sort do |a, b|
-      a.twitter_id <=> b.twitter_id
-    end.each do |tweet|
-      #Twitter::Status.tweet(self.username, self.password, tweet.translated) unless tweet.translated.nil? || tweet.translated.empty?
-      unless tweet.translated.nil? || tweet.translated.empty?
+    coder = HTMLEntities.new
+    new_tweets.sort_by{|obj| obj.twitter_id}.each do |tweet|
+      unless tweet.translated.blank?
         # http://luigimontanez.com/2010/rubyists-guide-twitter-oauth-dance/ was a good help
         oauth = Twitter::OAuth.new(self.consumer_key, self.consumer_secret)
         oauth.authorize_from_access(self.access_token, self.access_secret)
 
         client = Twitter::Base.new(oauth)
-        client.update(tweet.translated[0,140])
+        client.update(coder.decode(tweet.translated[0,140]))
       end
     end
   end
