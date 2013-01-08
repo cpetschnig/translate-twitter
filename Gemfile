@@ -2,7 +2,7 @@
 source 'http://gemcutter.org'
 
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.1'
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
@@ -14,7 +14,7 @@ gem 'nokogiri'
 gem 'jrails'
 gem 'htmlentities'
 
-gem 'ms-translator', :path => '/Users/cpetschnig/Ruby/Gems/ms-translator'
+gem 'ms-translator'
 gem 'sishen-rtranslate', :require => 'rtranslate'
 gem 'constantrecord'
 gem 'toffee'

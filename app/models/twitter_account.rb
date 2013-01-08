@@ -82,7 +82,7 @@ class TwitterAccount < ActiveRecord::Base
         oauth.authorize_from_access(self.access_token, self.access_secret)
 
         client = Twitter::Base.new(oauth)
-        client.update(coder.decode(tweet.translated[0,140]))
+        client.update(coder.decode(tweet.translated[0,140]).gsub('@', '&'))
       end
     end
   end
