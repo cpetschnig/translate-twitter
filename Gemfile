@@ -2,13 +2,13 @@
 source 'http://gemcutter.org'
 
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.19'
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
 #gem 'pg'
-gem 'mysql2'
+gem 'mysql2', "~> 0.2.18"
 gem 'twitter'
 gem 'nokogiri'
 gem 'jrails'
