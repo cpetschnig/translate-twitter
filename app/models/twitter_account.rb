@@ -56,7 +56,7 @@ class TwitterAccount < ActiveRecord::Base
 
   def translate(from, to)
     ms_service_id = Service.find_by_symbol(:microsoft).id
-    google_service_id = Service.find_by_symbol(:google).id
+    #google_service_id = Service.find_by_symbol(:google).id
 
     # use the htmlentities gem to fix encoding for OS X
     coder = HTMLEntities.new
@@ -67,9 +67,9 @@ class TwitterAccount < ActiveRecord::Base
       ms_translation = coder.decode(ms_translation)
       tweet.store_translation(ms_translation, ms_service_id)
 
-      google_translation = Translate.t(tweet.text, from, to)
-      google_translation = coder.decode(google_translation)
-      tweet.store_translation(google_translation, google_service_id)
+      #google_translation = Translate.t(tweet.text, from, to)
+      #google_translation = coder.decode(google_translation)
+      #tweet.store_translation(google_translation, google_service_id)
     end
   end
 
