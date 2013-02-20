@@ -7,7 +7,7 @@
     <%= user_account_li(:show_all, controller.action_name == 'index') %>
     <% @users.each do |user| %>
       <% active = @user && user.id == @user.id %>
-      <%= user_account_li(user, @user && user.id == @user.id) %>
+      <%= user_account_li(user, active) %>
     <% end %>
   </ul>
 </div>

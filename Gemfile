@@ -3,6 +3,7 @@ ruby '2.0.0'
 
 gem 'rails', '3.2.12'
 gem 'mysql2'
+gem 'constantrecord'
 gem 'blueprint-rails'
 
 group :development, :test do

@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100905185647) do
+ActiveRecord::Schema.define(:version => 20130220120424) do
 
   create_table "ms_languages", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "translation_jobs", :force => true do |t|
@@ -25,17 +25,19 @@ ActiveRecord::Schema.define(:version => 20100905185647) do
     t.string   "from_lang"
     t.string   "to_lang"
     t.boolean  "active"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tweet_translations", :force => true do |t|
     t.integer  "tweet_id"
     t.integer  "service_id"
     t.string   "text",       :limit => 512
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "tweet_translations", ["tweet_id"], :name => "index_tweet_translations_on_tweet_id"
 
   create_table "tweets", :force => true do |t|
     t.integer  "user_id"
@@ -51,9 +53,11 @@ ActiveRecord::Schema.define(:version => 20100905185647) do
     t.boolean  "status"
     t.string   "json"
     t.datetime "tw_created_at"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "tweets", ["twitter_id"], :name => "index_tweets_on_twitter_id"
 
   create_table "twitter_accounts", :force => true do |t|
     t.string   "username"
@@ -61,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20100905185647) do
     t.string   "password"
     t.string   "since_id"
     t.datetime "tweets_fetched_at"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "can_publish"
     t.string   "image_url",         :limit => 128
     t.string   "real_name",         :limit => 32

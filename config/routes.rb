@@ -1,30 +1,7 @@
-TranslateTwitter::Application.routes.draw do |map|
-
-  #match 'showcase/:username' => 'showcase#show_user'
-
-  if File.exist?(File.join(Rails.root, 'AllowAdministration.txt'))
-
-    resources :services
-
-    resources :translation_jobs
-
-    resources :tweets
-
-    resources :translations
-
-    match 'twitter_accounts/fetch_from_twitter.:format' => 'twitter_accounts#fetch_from_twitter',
-      :as => :fetch_user_from_twitter, :via => :get
-
-    resources :twitter_accounts
-    
-  end
-
-  match ':status_id' => 'showcase#show_tweet', :status_id => /\d+/
-
-  match ':username' => 'showcase#show_user'
+TranslateTwitter::Application.routes.draw do
 
   root :to => 'showcase#index'
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -42,12 +19,12 @@ TranslateTwitter::Application.routes.draw do |map|
   # Sample resource route with options:
   #   resources :products do
   #     member do
-  #       get :short
-  #       post :toggle
+  #       get 'short'
+  #       post 'toggle'
   #     end
   #
   #     collection do
-  #       get :sold
+  #       get 'sold'
   #     end
   #   end
 
@@ -61,7 +38,7 @@ TranslateTwitter::Application.routes.draw do |map|
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get :recent, :on => :collection
+  #       get 'recent', :on => :collection
   #     end
   #   end
 
@@ -72,13 +49,9 @@ TranslateTwitter::Application.routes.draw do |map|
   #     resources :products
   #   end
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => "welcome#index"
-
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id))(.:format)'
 end
