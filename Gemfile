@@ -1,33 +1,31 @@
-# Edit this Gemfile to bundle your application's dependencies.
-source 'http://gemcutter.org'
+source 'https://rubygems.org'
+ruby '2.0.0'
 
+gem 'rails', '3.2.12'
+gem 'mysql2'
+gem 'blueprint-rails'
 
-gem 'rails', '3.0.19'
+group :development, :test do
+  gem 'looksee'
+  gem 'pry'
+end
 
-## Bundle edge rails:
-# gem "rails", :git => "git://github.com/rails/rails.git"
+group :development do
+  # Deploy with Capistrano
+  # gem 'capistrano'
+end
 
-#gem 'pg'
-gem 'mysql2', "~> 0.2.18"
-gem 'twitter'
-gem 'nokogiri'
-gem 'jrails'
-gem 'htmlentities'
+group :test do
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+end
 
-gem 'ms-translator'
-gem 'sishen-rtranslate', :require => 'rtranslate'
-gem 'constantrecord'
-gem 'toffee'
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
 
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
 
-## Bundle the gems you use:
-# gem "bj"
-# gem "hpricot", "0.6"
-# gem "sqlite3-ruby", :require => "sqlite3"
-# gem "aws-s3", :require => "aws/s3"
-
-## Bundle gems used only in certain environments:
-# gem "rspec", :group => :test
-# group :test do
-#   gem "webrat"
-# end
+  gem 'uglifier', '>= 1.0.3'
+end

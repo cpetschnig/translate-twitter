@@ -1,11 +1,11 @@
 == Translate Twitter
 
-Application is running at http://tera.cc
+Application is running at http://tera.cc/
 
 === Environment
 
-* Ruby 1.8.7 p249
-* Rails 3.0.3 beta/Rails --pre
+* Ruby 2.0.0dev
+* Rails 3.2.12
 
 === Install a new cron job:
 
