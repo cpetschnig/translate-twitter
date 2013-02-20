@@ -1,5 +1,7 @@
 TranslateTwitter::Application.routes.draw do
 
+  match ':username' => 'showcase#show_user'
+
   root :to => 'showcase#index'
 
   # The priority is based upon order of creation:

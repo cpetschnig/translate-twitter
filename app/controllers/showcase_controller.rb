@@ -1,11 +1,11 @@
 class ShowcaseController < ApplicationController
 
+  before_filter :load_users
+
   # GET /showcase
   # GET /showcase.xml
   def index
-    @users = TwitterAccount.all(:conditions => {:can_publish => false},
-      :order => 'followers DESC')
-    @tweets = Tweet.all(:limit => 20, :order => 'twitter_id DESC')
+    @tweets = Tweet.limit(20).order("twitter_id DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,12 +16,7 @@ class ShowcaseController < ApplicationController
   # GET /:username
   def show_user
     @user = TwitterAccount.find_by_username(params[:username])
-
-    @users = TwitterAccount.all(:conditions => {:can_publish => false},
-      :order => 'followers DESC')
-
-    @tweets = Tweet.all(:limit => 20, :conditions => {:user_id => @user.id},
-      :order => 'twitter_id DESC')
+    @tweets = Tweet.where(:user_id => @user.id).limit(20).order("twitter_id DESC")
 
     respond_to do |format|
       format.html { render :action => 'index' }
@@ -29,9 +24,9 @@ class ShowcaseController < ApplicationController
     end
   end
 
-  # GET /1234567
-  def show_tweet
+  private
 
+  def load_users
+    @users = TwitterAccount.where(:can_publish => false).order('followers DESC')
   end
-
 end
