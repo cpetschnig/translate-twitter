@@ -20,6 +20,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
+  gem 'shoulda-matchers'
 end
 
 group :assets do

@@ -3,6 +3,6 @@ class TranslatedTweet < ActiveRecord::Base
 
   belongs_to :tweet
 
-  validates_length_of :text, :maximum => 512
+  validates :text, :length => {:maximum => 512}
 
 end
