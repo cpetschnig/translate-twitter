@@ -1,5 +1,7 @@
 class ShowcaseController < ApplicationController
 
+  layout "showcase"
+
   before_filter :load_users
 
   # GET /showcase
