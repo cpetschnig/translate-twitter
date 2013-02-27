@@ -5,6 +5,7 @@ ActiveAdmin.register TwitterAccount do
   scope :consumers
 
   index do
+    selectable_column
     column "Image", :image_url do |account|
       image_tag(account.image_url, :height => 24, :width => 24) if account.image_url
     end
@@ -32,5 +33,12 @@ ActiveAdmin.register TwitterAccount do
     account = TwitterAccount.find(params[:id])
     account.update_user_data
     redirect_to url_for(:action => :show), :notice => "Updated user data of #{account.real_name} from Twitter."
+  end
+
+  batch_action :update_user_data do |selection|
+    TwitterAccount.find(selection).each do |account|
+      account.update_user_data
+    end
+    redirect_to collection_path, :notice => "User data was updated."
   end
 end
