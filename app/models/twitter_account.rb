@@ -22,6 +22,16 @@ class TwitterAccount < ActiveRecord::Base
 
     self.tweets << tweets
 
-    self.save
+    save
+  end
+
+  def update_user_data
+    result = TwitterClient.global.user(self.username)
+
+    self.image_url = result.profile_image_url
+    self.real_name = result.name
+    self.followers = result.followers_count
+
+    save
   end
 end

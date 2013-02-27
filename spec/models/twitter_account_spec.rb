@@ -35,4 +35,13 @@ describe TwitterAccount do
       subject.fetch_tweets
     end
   end
+
+  describe "#update_user_data" do
+    it "should call :user on the global Twitter client object" do
+      user_data_result = mock(:profile_image_url => "http://foo.bar/baz.png",
+                              :name => "Moe", :followers_count => 33)
+      TwitterClient.global.should_receive(:user).and_return user_data_result
+      subject.update_user_data
+    end
+  end
 end
