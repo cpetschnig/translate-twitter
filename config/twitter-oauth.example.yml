@@ -1,0 +1,8 @@
+# You need a Twitter account that does the global read-only stuff for you,
+# like fetching tweets or user data. Enter the credentials here.
+# See also https://github.com/sferik/twitter#configuration
+consumer_key: "an application's consumer key"
+consumer_secret: "an application's consumer secret"
+
+global_access_token: "a user's access token"
+global_access_token_secret: "a user's access secret"

@@ -28,4 +28,11 @@ describe TwitterAccount do
     it { should ensure_length_of(:access_token).is_at_most(64) }
     it { should ensure_length_of(:access_secret).is_at_most(64) }
   end
+
+  describe "#fetch_tweets" do
+    it "should call :user_timeline on the global Twitter client object" do
+      TwitterClient.global.should_receive(:user_timeline).and_return []
+      subject.fetch_tweets
+    end
+  end
 end

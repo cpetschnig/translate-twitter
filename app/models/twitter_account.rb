@@ -12,4 +12,16 @@ class TwitterAccount < ActiveRecord::Base
   validates :access_token,    :length => {:maximum => 64}, :allow_nil => true
   validates :access_secret,   :length => {:maximum => 64}, :allow_nil => true
 
+  def fetch_tweets
+    options = {}
+    options[:since_id] = self.since_id if self.since_id
+    result = TwitterClient.global.user_timeline(self.username, options)
+
+    tweets = result.map { |obj| Tweet.from_twitter(obj) }
+    self.since_id = tweets.map(&:twitter_id).max unless tweets.empty?
+
+    self.tweets << tweets
+
+    self.save
+  end
 end

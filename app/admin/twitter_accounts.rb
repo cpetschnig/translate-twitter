@@ -5,13 +5,25 @@ ActiveAdmin.register TwitterAccount do
   scope :consumers
 
   index do
-    column :id
+    column "Image", :image_url do |account|
+      image_tag(account.image_url, :height => 24, :width => 24) if account.image_url
+    end
     column :username
-    column :user_id
+    column "Twitter ID", :user_id
     column :can_publish
     column :real_name
     column :followers
-    default_actions
+    column "Actions" do |account|
+      link_to("View", admin_twitter_account_path(account), :class => "member_link view_link") +
+        link_to("Fetch Tweets", fetch_tweets_admin_twitter_account_path(account), :method => :post, :class => "member_link")
+    end
   end
 
+  config.sort_order = "followers_desc"
+
+  member_action :fetch_tweets, :method => :post do
+    account = TwitterAccount.find(params[:id])
+    account.fetch_tweets
+    redirect_to url_for(:action => :show), :notice => "Fetched tweets of #{account.real_name} from Twitter."
+  end
 end

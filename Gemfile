@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'rails', '3.2.12'
+gem 'rails', '~> 3.2.12'
 gem 'mysql2'
+gem 'twitter', :require => false
 gem 'activeadmin'
 gem 'constantrecord'
 gem 'blueprint-rails'
@@ -10,11 +11,6 @@ gem 'blueprint-rails'
 group :development, :test do
   gem 'looksee'
   gem 'pry'
-end
-
-group :development do
-  # Deploy with Capistrano
-  # gem 'capistrano'
 end
 
 group :test do
