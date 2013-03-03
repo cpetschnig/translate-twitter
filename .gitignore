@@ -10,6 +10,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/public/assets/
 
 # Don't check in config files
 config/database.yml
