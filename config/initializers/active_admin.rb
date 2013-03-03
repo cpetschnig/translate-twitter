@@ -145,3 +145,17 @@ ActiveAdmin.setup do |config|
   # Set the CSV builder options (default is {})
   # config.csv_options = {}
 end
+
+
+ActiveAdmin::Devise # trigger loading of module
+
+# Overwrite the controller methods to add the OmniAuth callback for twitter.
+module ActiveAdmin::Devise
+  def self.controllers
+    {
+      :sessions => "active_admin/devise/sessions",
+      :passwords => "active_admin/devise/passwords",
+      :omniauth_callbacks => "omniauth_callbacks"
+    }
+  end
+end

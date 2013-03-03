@@ -5,6 +5,7 @@ gem 'rails', '~> 3.2.12'
 gem 'mysql2'
 gem 'twitter', :require => false
 gem 'activeadmin'
+gem 'omniauth-twitter'
 gem 'constantrecord'
 gem 'blueprint-rails'
 
