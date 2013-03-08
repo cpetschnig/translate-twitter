@@ -44,19 +44,46 @@ describe TranslationJob do
       subject.fetch_and_translate
     end
 
-    it "should send the text of the tweet to the Microsoft Translator" do
-      tweet = mock("tweet", :text => "foo bar", :store_translation => true)
-      subject.source.stub(:fetch_tweets).and_return [tweet]
-      Microsoft.should_receive(:Translator).with(tweet.text, nil, nil)
-      subject.fetch_and_translate
+    context "when it needs translation" do
+      let :tweet do
+        Tweet.new(:text => "foo bar").tap do |tweet|
+          tweet.stub(:needs_translation?).and_return true
+        end
+      end
+
+      it "should send the text of the tweet to the Microsoft Translator" do
+        tweet.stub(:store_translation)
+        subject.source.stub(:fetch_tweets).and_return [tweet]
+        Microsoft.should_receive(:Translator).with(tweet.text, nil, nil)
+        subject.fetch_and_translate
+      end
+
+      it "should store the translation with the tweet" do
+        subject.source.stub(:fetch_tweets).and_return [tweet]
+        Microsoft.stub(:Translator).and_return "some translation"
+        tweet.should_receive(:store_translation).with("some translation", anything)
+        subject.fetch_and_translate
+      end
     end
 
-    it "should store the translation with the tweet" do
-      tweet = Tweet.new
-      subject.source.stub(:fetch_tweets).and_return [tweet]
-      Microsoft.stub(:Translator).and_return "some translation"
-      tweet.should_receive(:store_translation).with("some translation", anything)
-      subject.fetch_and_translate
+    context "when it does not need translation" do
+      let :tweet do
+        Tweet.new(:text => "foo bar").tap do |tweet|
+          tweet.stub(:needs_translation?).and_return false
+        end
+      end
+
+      it "should not send the text of the tweet to the Microsoft Translator" do
+        subject.source.stub(:fetch_tweets).and_return [tweet]
+        Microsoft.should_not_receive(:Translator).with(tweet.text, nil, nil)
+        subject.fetch_and_translate
+      end
+
+      it "should not store the translation with the tweet" do
+        subject.source.stub(:fetch_tweets).and_return [tweet]
+        tweet.should_not_receive(:store_translation).with("some translation", anything)
+        subject.fetch_and_translate
+      end
     end
   end
 end

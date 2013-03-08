@@ -57,4 +57,22 @@ describe Tweet do
       subject.store_translation("foo bar", 1)
     end
   end
+
+  describe "#needs_translation?" do
+    context "when has only ascii chars" do
+      subject { Tweet.new(:text => "RT @peepcode: The best pairing since Robert Redford and Brad Pitt. It's @tenderlove and @coreyhaines in the latest Play by Play! https:/ ...") }
+      its(:needs_translation?) { should be_false }
+    end
+
+    context "when it has non-ascii, but ascii compatible chars" do
+      # the "’", position 63 is Unicode
+      subject { Tweet.new(:text => "@nzkoz @steveklabnik @indirect Ya, I said we could CC there. It’s 0 effort to add another CC. :-/") }
+      its(:needs_translation?) { pending; should be_false }
+    end
+
+    context "when it has non-ascii chars" do
+      subject { Tweet.new(:text => "@lchin 終わったと言うか、負けたので降参して退社したんですが、降参しきれてなかったらしく。いま、web から修正します。") }
+      its(:needs_translation?) { should be_true }
+    end
+  end
 end

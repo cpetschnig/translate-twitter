@@ -23,14 +23,10 @@
         <li><a href="#" onclick="return false;">Google Translate</a></li>
         <li><a href="#" onclick="return false;">more</a></li>
       </ul -->
-      <% if tweet.translations.empty? %>
-      <div class="translation">--- translation failed (it's still BETA) ---</div>
-      <% else %>
-        <% tweet.translations.each do |translation| %>
-      <div class="translation"><% unless translation.text.nil? || translation.text.empty? %>
+      <% tweet.translations.each do |translation| %>
+      <div class="translation"><% if translation.text.present? %>
           <span class="service" title="Translated by <%= Service.find(translation.service_id).name %>"><%= Service.find(translation.service_id).short %></span><%= parse_tweet(translation.text) %><% end %></div>
-        <% end
-         end %>
+      <% end %>
       <div class="thumb">
         <img src="<%= tweet.user && tweet.user.image_url %>" alt="<%= tweet.user && tweet.user.username %>" title="<%= tweet.user && tweet.user.username %>" class="tw_small" />
       </div>

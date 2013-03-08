@@ -26,4 +26,9 @@ class Tweet < ActiveRecord::Base
   def store_translation(translation, service_id)
     translations.create(:text => translation, :service_id => service_id)
   end
+
+  # Returns true when the tweet actually needs to be translated
+  def needs_translation?
+    text.size != text.bytesize
+  end
 end

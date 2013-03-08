@@ -21,8 +21,10 @@ class TranslationJob < ActiveRecord::Base
   def fetch_and_translate
     ms_translator_service = Service.find_by_symbol(:microsoft)
     source.fetch_tweets.each do |tweet|
-      translation = Microsoft::Translator(tweet.text, from_lang, to_lang)
-      tweet.store_translation(translation, ms_translator_service.id)
+      if tweet.needs_translation?
+        translation = Microsoft::Translator(tweet.text, from_lang, to_lang)
+        tweet.store_translation(translation, ms_translator_service.id)
+      end
     end
   end
 end
