@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100905185647) do
+ActiveRecord::Schema.define(:version => 20130220201237) do
+
+  create_table "active_admin_comments", :force => true do |t|
+    t.string   "resource_id",   :null => false
+    t.string   "resource_type", :null => false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "namespace"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
+  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
+  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+
+  create_table "admin_users", :force => true do |t|
+    t.string   "email",                :default => "", :null => false
+    t.string   "encrypted_password",   :default => "", :null => false
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",        :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.integer  "uid"
+    t.string   "token"
+    t.string   "token_secret"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "admin_users", ["uid"], :name => "index_admin_users_on_uid", :unique => true
 
   create_table "ms_languages", :force => true do |t|
     t.string   "name"
@@ -36,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20100905185647) do
     t.datetime "updated_at"
   end
 
+  add_index "tweet_translations", ["tweet_id"], :name => "index_tweet_translations_on_tweet_id"
+
   create_table "tweets", :force => true do |t|
     t.integer  "user_id"
     t.integer  "twitter_id",      :limit => 8
@@ -53,6 +90,8 @@ ActiveRecord::Schema.define(:version => 20100905185647) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tweets", ["twitter_id"], :name => "index_tweets_on_twitter_id"
 
   create_table "twitter_accounts", :force => true do |t|
     t.string   "username"
