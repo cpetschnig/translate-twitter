@@ -10,4 +10,8 @@ describe TranslatedTweet do
     it { should ensure_length_of(:text).is_at_most(512) }
   end
 
+  describe "mass assignment protection" do
+    it { should allow_mass_assignment_of :text }
+    it { should allow_mass_assignment_of :service_id }
+  end
 end

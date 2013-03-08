@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'twitter', :require => false
 gem 'activeadmin'
 gem 'omniauth-twitter'
+gem 'ms-translator'
 gem 'constantrecord'
 gem 'blueprint-rails'
 

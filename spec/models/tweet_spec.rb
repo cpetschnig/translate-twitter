@@ -50,4 +50,11 @@ describe Tweet do
       result.tw_created_at.should == expected_timestamp
     end
   end
+
+  describe "#store_translation" do
+    it "should create a new translation" do
+      subject.translations.should_receive(:create)
+      subject.store_translation("foo bar", 1)
+    end
+  end
 end

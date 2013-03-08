@@ -30,9 +30,32 @@ describe TwitterAccount do
   end
 
   describe "#fetch_tweets" do
+    let(:tweet_obj_from_client) { mock("tweet_obj_from_client") }
+    let(:tweets_from_client) { [tweet_obj_from_client] }
+
     it "should call :user_timeline on the global Twitter client object" do
       TwitterClient.global.should_receive(:user_timeline).and_return []
       subject.fetch_tweets
+    end
+
+    it "should create Tweet objects from the client result" do
+      TwitterClient.global.stub(:user_timeline).and_return tweets_from_client
+      Tweet.should_receive(:from_twitter).with(tweet_obj_from_client).and_return Tweet.new
+      subject.fetch_tweets
+    end
+
+    it "should set :since_id to the id of the newest tweet" do
+      TwitterClient.global.stub(:user_timeline).and_return tweets_from_client
+      Tweet.stub(:from_twitter).and_return Tweet.new(:twitter_id => 33)
+      subject.fetch_tweets
+      subject.since_id.should == 33
+    end
+
+    it "should return the new tweets" do
+      new_tweet = Tweet.new(:twitter_id => 77)
+      TwitterClient.global.stub(:user_timeline).and_return tweets_from_client
+      Tweet.stub(:from_twitter).and_return new_tweet
+      subject.fetch_tweets.should == [ new_tweet ]
     end
   end
 

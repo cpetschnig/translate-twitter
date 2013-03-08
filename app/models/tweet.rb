@@ -10,6 +10,8 @@ class Tweet < ActiveRecord::Base
 
   attr_accessible :text, :twitter_id, :irt_screen_name, :irt_user_id, :irt_status_id, :source, :tw_created_at
 
+  # Build a new instance from the object that was returned
+  # by the client of the twitter gem.
   def self.from_twitter(obj)
     self.new(:text => obj.text,
              :twitter_id => obj.id,
@@ -18,5 +20,10 @@ class Tweet < ActiveRecord::Base
              :irt_status_id => obj.in_reply_to_status_id,
              :source => obj.source,
              :tw_created_at => obj.created_at)
+  end
+
+  # Store a new translation
+  def store_translation(translation, service_id)
+    translations.create(:text => translation, :service_id => service_id)
   end
 end

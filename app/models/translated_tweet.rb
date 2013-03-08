@@ -5,4 +5,5 @@ class TranslatedTweet < ActiveRecord::Base
 
   validates :text, :length => {:maximum => 512}
 
+  attr_accessible :text, :service_id
 end
