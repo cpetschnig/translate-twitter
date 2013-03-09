@@ -13,6 +13,7 @@ describe TwitterClient do
     end
 
     it "should raise an exception if the config/twitter-oauth.yml file does not exist" do
+      described_class.instance_variable_set("@global", nil)
       File.stub(:exist?).and_return(false)
       expect { described_class.global }.to raise_exception
     end

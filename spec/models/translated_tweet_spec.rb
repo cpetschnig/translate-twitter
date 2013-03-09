@@ -17,13 +17,13 @@ describe TranslatedTweet do
 
   describe "#repair_translation" do
     before do
-      subject.tweet = Tweet.new(:text => "@nzkoz @steveklabnik @indirect Ya, I said we could CC there.")
-      subject.text = "@nzkoz @ steveklabnik @ indirect Ya, I said we could CC there."
+      subject.tweet = Tweet.new(:text => "@nzkoz @steveklabnik @_dozen_ @_ko1 @n0kada.")
+      subject.text = "@nzkoz @ steveklabnik @ _dozen _ @ _ko1 @ n 0kada."
     end
 
     it "should remove spaces in usernames" do
       subject.save
-      subject.text.should == "@nzkoz @steveklabnik @indirect Ya, I said we could CC there."
+      subject.text.should == "@nzkoz @steveklabnik @_dozen_ @_ko1 @n0kada."
     end
   end
 end

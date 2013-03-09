@@ -11,12 +11,12 @@ class TranslatedTweet < ActiveRecord::Base
 
   private
 
+  # Check for twitter account translations: '@username' might have become '@ username'.
+  # The translator likes to break twitter usernames
+  # "@nari3" became "@ nari 3" or even "@ Nari 3"
   def repair_translation
-    # check for twitter account translations: '@username' might have become '@ username'
     self.tweet.text.scan(/@[a-zA-Z0-9_]+/) do |match|
-      # the translator likes to break twitter usernames
-      # "@nari3" became "@ nari 3" or even "@ Nari 3"
-      broken_username = match[1..-1].gsub(/(\d+)/, ' \1 ').strip
+      broken_username = match[1..-1].gsub(/([^a-zA-Z]+)/, '\s?\1')
       self.text.gsub!(%r{@ (#{broken_username}|#{broken_username.capitalize})}, match)
     end
   end
