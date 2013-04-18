@@ -21,6 +21,7 @@ group :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'shoulda-matchers'
+  gem 'simplecov', :require => false
 end
 
 group :assets do
