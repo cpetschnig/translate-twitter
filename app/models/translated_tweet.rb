@@ -1,3 +1,4 @@
+# Holds the translation of a tweet
 class TranslatedTweet < ActiveRecord::Base
   self.table_name = "tweet_translations"
 

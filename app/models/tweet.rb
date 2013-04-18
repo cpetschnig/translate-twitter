@@ -1,3 +1,4 @@
+# A Tweet that is also stored at twitter.com
 class Tweet < ActiveRecord::Base
 
   belongs_to :user, :class_name => "TwitterAccount"
@@ -28,6 +29,7 @@ class Tweet < ActiveRecord::Base
   end
 
   # Returns true when the tweet actually needs to be translated
+  # TODO: this concept fails, when the tweet contains 'normal' (non language specific) characters
   def needs_translation?
     text.size != text.bytesize
   end

@@ -1,3 +1,4 @@
+# Handles translation of a tweet
 class TranslationJob < ActiveRecord::Base
 
   belongs_to :source, :class_name => "TwitterAccount"

@@ -15,9 +15,12 @@ ActiveAdmin.register TwitterAccount do
     column :real_name
     column :followers
     column "Actions" do |account|
-      link_to("View", admin_twitter_account_path(account), :class => "member_link view_link") +
-        link_to("Fetch Tweets", fetch_tweets_admin_twitter_account_path(account), :method => :post, :class => "member_link") +
-        link_to("Update", update_data_admin_twitter_account_path(account), :method => :post, :class => "member_link")
+      link_to("View", admin_twitter_account_path(account),
+              :class => "member_link view_link") +
+        link_to("Fetch Tweets", fetch_tweets_admin_twitter_account_path(account),
+                :method => :post, :class => "member_link") +
+        link_to("Update", update_data_admin_twitter_account_path(account),
+                :method => :post, :class => "member_link")
     end
   end
 

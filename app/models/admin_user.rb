@@ -1,3 +1,4 @@
+# The admin user
 class AdminUser < ActiveRecord::Base
   # Include devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :recoverable

@@ -1,5 +1,7 @@
 require "twitter"
 
+# A wrapper around the client of the twitter gem
+# TODO: move to lib/
 class TwitterClient
 
   # Returns the client used for global (read-only) actions.

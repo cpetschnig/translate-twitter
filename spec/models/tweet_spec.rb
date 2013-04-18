@@ -10,7 +10,8 @@ describe Tweet do
       describe ".empty?" do
         it "should override :empty? to not use the database COUNT method" do
           [described_class.column_names, TranslatedTweet.column_names]  # trigger "SHOW FIELDS FROM..." query
-          query = "SELECT `tweet_translations`.* FROM `tweet_translations`  WHERE `tweet_translations`.`tweet_id` IS NULL"
+          query = "SELECT `tweet_translations`.* FROM `tweet_translations`  " \
+                  "WHERE `tweet_translations`.`tweet_id` IS NULL"
           result = mock(Array, :fields => [], :to_a => [])
           ActiveRecord::Base.connection.should_receive(:execute).with(query, anything).and_return result
           subject.stub(:new_record?).and_return false
@@ -60,18 +61,21 @@ describe Tweet do
 
   describe "#needs_translation?" do
     context "when has only ascii chars" do
-      subject { Tweet.new(:text => "RT @peepcode: The best pairing since Robert Redford and Brad Pitt. It's @tenderlove and @coreyhaines in the latest Play by Play! https:/ ...") }
+      subject { Tweet.new(:text => "RT @peepcode: The best pairing since Robert Redford and Brad Pitt. " \
+                                   "It's @tenderlove and @coreyhaines in the latest Play by Play! https:/ ...") }
       its(:needs_translation?) { should be_false }
     end
 
     context "when it has non-ascii, but ascii compatible chars" do
       # the "’", position 63 is Unicode
-      subject { Tweet.new(:text => "@nzkoz @steveklabnik @indirect Ya, I said we could CC there. It’s 0 effort to add another CC. :-/") }
+      subject { Tweet.new(:text => "@nzkoz @steveklabnik @indirect Ya, I said we could CC there. " \
+                                   "It’s 0 effort to add another CC. :-/") }
       its(:needs_translation?) { pending; should be_false }
     end
 
     context "when it has non-ascii chars" do
-      subject { Tweet.new(:text => "@lchin 終わったと言うか、負けたので降参して退社したんですが、降参しきれてなかったらしく。いま、web から修正します。") }
+      subject { Tweet.new(:text => "@lchin 終わったと言うか、負けたので降参して退社したんですが、降参しきれてなかったらしく。" \
+                                   "いま、web から修正します。") }
       its(:needs_translation?) { should be_true }
     end
   end

@@ -1,3 +1,4 @@
+# The 'welcome' controller
 class ShowcaseController < ApplicationController
 
   layout "showcase"

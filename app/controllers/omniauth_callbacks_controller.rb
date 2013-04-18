@@ -1,3 +1,4 @@
+# Controller for Twitter authentication
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def twitter
