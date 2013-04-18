@@ -44,4 +44,17 @@ ActiveAdmin.register TwitterAccount do
     end
     redirect_to collection_path, :notice => "User data was updated."
   end
+
+  # overwrite the default create action
+  collection_action :create, :method => :post do
+    twitter_account = TwitterAccount.create_from_twitter(params["twitter_account"]["username"])
+    redirect_to admin_twitter_account_path(twitter_account), :notice => "New account was created!"
+  end
+
+  form do |f|
+    f.inputs "Details" do
+      f.input :username
+    end
+    f.actions
+  end
 end

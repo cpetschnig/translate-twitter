@@ -29,6 +29,23 @@ describe TwitterAccount do
     it { should ensure_length_of(:access_secret).is_at_most(64) }
   end
 
+  describe ".create_from_twitter" do
+    it "should set the given username" do
+      object = described_class.new
+      described_class.stub(:new).and_return object
+      object.stub(:update_user_data)
+      described_class.create_from_twitter("asdf")
+      object.username.should == "asdf"
+    end
+
+    it "should update the account data from twitter" do
+      object = described_class.new
+      described_class.stub(:new).and_return object
+      object.should_receive(:update_user_data)
+      described_class.create_from_twitter("asdf")
+    end
+  end
+
   describe "#fetch_tweets" do
     let(:tweet_obj_from_client) { mock("tweet_obj_from_client") }
     let(:tweets_from_client) { [tweet_obj_from_client] }

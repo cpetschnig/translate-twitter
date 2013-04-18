@@ -13,6 +13,14 @@ class TwitterAccount < ActiveRecord::Base
   validates :access_token,    :length => {:maximum => 64}, :allow_nil => true
   validates :access_secret,   :length => {:maximum => 64}, :allow_nil => true
 
+  # Creates a new TwitterAccount object filled with the data from twitter.com
+  def self.create_from_twitter(username)
+    new.tap do |twitter_account|
+      twitter_account.username = username
+      twitter_account.update_user_data
+    end
+  end
+
   # Retrieve new tweets from Twitter and store them.
   # Sets :since_id to the Id of the newest tweet.
   # Returns new tweets.
@@ -33,6 +41,7 @@ class TwitterAccount < ActiveRecord::Base
   def update_user_data
     result = TwitterClient.global.user(self.username)
 
+    self.user_id = result.id
     self.image_url = result.profile_image_url
     self.real_name = result.name
     self.followers = result.followers_count
