@@ -1,0 +1,4 @@
+build :default do
+  task :cane
+  task :rspec
+end

@@ -14,6 +14,7 @@ group :development, :test do
   gem 'looksee'
   gem 'pry'
   gem 'cane'
+  gem 'fudge'
 end
 
 group :test do
