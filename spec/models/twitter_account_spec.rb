@@ -27,6 +27,7 @@ describe TwitterAccount do
     it { should ensure_length_of(:consumer_secret).is_at_most(64) }
     it { should ensure_length_of(:access_token).is_at_most(64) }
     it { should ensure_length_of(:access_secret).is_at_most(64) }
+    it { should validate_uniqueness_of(:username) }
   end
 
   describe ".create_from_twitter" do
@@ -77,11 +78,33 @@ describe TwitterAccount do
   end
 
   describe "#update_user_data" do
+    let(:back_than) { Time.new(1939, 5, 1) }
+    let :user_data_result do
+      mock(:id => 33, :location => "Gotham City", :description => "Dark Knight",
+           :created_at => back_than, :profile_image_url => "http://foo.bar/baz.png",
+           :name => "Bruce Wayne", :followers_count => 15_000_001, :friends_count => 7, :statuses_count => 3)
+    end
+
     it "should call :user on the global Twitter client object" do
-      user_data_result = mock(:profile_image_url => "http://foo.bar/baz.png",
-                              :name => "Moe", :followers_count => 33)
       TwitterClient.global.should_receive(:user).and_return user_data_result
       subject.update_user_data
+    end
+
+    describe "attributes" do
+      before do
+        TwitterClient.global.stub(:user).and_return user_data_result
+        subject.update_user_data
+      end
+
+      its(:user_id) { should == 33 }
+      its(:location) { should == "Gotham City" }
+      its(:description) { should == "Dark Knight" }
+      its(:created_at_twitter) { should == back_than }
+      its(:image_url) { should == "http://foo.bar/baz.png" }
+      its(:real_name) { should == "Bruce Wayne" }
+      its(:followers) { should == 15_000_001 }
+      its(:friends) { should == 7 }
+      its(:statuses) { should == 3 }
     end
   end
 end

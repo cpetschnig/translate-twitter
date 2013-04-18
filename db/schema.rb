@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220201237) do
+ActiveRecord::Schema.define(:version => 20130418084548) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -98,17 +98,23 @@ ActiveRecord::Schema.define(:version => 20130220201237) do
     t.integer  "user_id"
     t.string   "password"
     t.string   "since_id"
-    t.datetime "tweets_fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "can_publish"
-    t.string   "image_url",         :limit => 128
-    t.string   "real_name",         :limit => 32
+    t.string   "image_url",          :limit => 128
+    t.string   "real_name",          :limit => 32
     t.integer  "followers"
-    t.string   "consumer_key",      :limit => 32
-    t.string   "consumer_secret",   :limit => 64
-    t.string   "access_token",      :limit => 64
-    t.string   "access_secret",     :limit => 64
+    t.string   "consumer_key",       :limit => 32
+    t.string   "consumer_secret",    :limit => 64
+    t.string   "access_token",       :limit => 64
+    t.string   "access_secret",      :limit => 64
+    t.datetime "created_at_twitter"
+    t.string   "location"
+    t.string   "description"
+    t.integer  "friends"
+    t.integer  "statuses"
   end
+
+  add_index "twitter_accounts", ["username"], :name => "index_twitter_accounts_on_username", :unique => true
 
 end

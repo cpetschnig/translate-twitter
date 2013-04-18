@@ -10,7 +10,9 @@ ActiveAdmin.register TwitterAccount do
       image_tag(account.image_url, :height => 24, :width => 24) if account.image_url
     end
     column :username
-    column "Twitter ID", :user_id
+    column "Joined on", :sortable => :created_at_twitter do |account|
+      account.created_at_twitter && account.created_at_twitter.strftime("%Y-%m-%d")
+    end
     column :can_publish
     column :real_name
     column :followers
@@ -48,7 +50,11 @@ ActiveAdmin.register TwitterAccount do
   # overwrite the default create action
   collection_action :create, :method => :post do
     twitter_account = TwitterAccount.create_from_twitter(params["twitter_account"]["username"])
-    redirect_to admin_twitter_account_path(twitter_account), :notice => "New account was created!"
+    if twitter_account.valid?
+      redirect_to admin_twitter_account_path(twitter_account), :notice => "New account was created!"
+    else
+      redirect_to collection_path, :alert => twitter_account.errors.full_messages
+    end
   end
 
   form do |f|

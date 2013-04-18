@@ -6,6 +6,7 @@ class TwitterAccount < ActiveRecord::Base
   scope :consumers, where(:can_publish => false)
   scope :publishers, where(:can_publish => true)
 
+  validates :username, :uniqueness => true
   validates :image_url, :length => {:maximum => 128}
   validates :real_name, :length => {:maximum => 32}
   validates :consumer_key,    :length => {:maximum => 32}, :allow_nil => true
@@ -42,9 +43,14 @@ class TwitterAccount < ActiveRecord::Base
     result = TwitterClient.global.user(self.username)
 
     self.user_id = result.id
+    self.location = result.location
+    self.description = result.description
+    self.created_at_twitter = result.created_at
     self.image_url = result.profile_image_url
     self.real_name = result.name
     self.followers = result.followers_count
+    self.friends = result.friends_count
+    self.statuses = result.statuses_count
 
     save
   end
