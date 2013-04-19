@@ -122,5 +122,12 @@ describe TwitterAccount do
       TwitterClient.should_receive(:for_user).with(subject).and_return client
       subject.tweet("foo")
     end
+
+    it "should replace '@' chars with '°'" do
+      client = mock
+      TwitterClient.stub(:for_user).and_return client
+      client.should_receive(:update).with("guilty °m_seki @ yotii23 °sferik?")
+      subject.tweet("guilty @m_seki @ yotii23 @sferik?")
+    end
   end
 end

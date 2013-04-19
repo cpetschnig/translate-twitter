@@ -58,7 +58,8 @@ class TwitterAccount < ActiveRecord::Base
   # Publish a status update (tweet) the given text
   def tweet(text)
     coder = HTMLEntities.new
-    TwitterClient.for_user(self).update(coder.decode(text[0,140]))
+    text_out = coder.decode(replace_at_signs(text)[0,140])
+    TwitterClient.for_user(self).update(text_out)
   end
 
   private
@@ -70,5 +71,9 @@ class TwitterAccount < ActiveRecord::Base
     TwitterClient.global.user_timeline(self.username, options).map do |raw_tweet|
       Tweet.from_twitter(raw_tweet)
     end
+  end
+
+  def replace_at_signs(text)
+    text.gsub(/@([a-zA-Z0-9_])/, '°\1')
   end
 end
