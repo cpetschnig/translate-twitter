@@ -18,6 +18,16 @@ class TwitterClient
     )
   end
 
+  # Returns the client for user-specific (write) actions.
+  def self.for_user(user)
+    Twitter::Client.new(
+      :consumer_key => user.consumer_key,
+      :consumer_secret => user.consumer_secret,
+      :oauth_token => user.access_token,
+      :oauth_token_secret => user.access_secret
+    )
+  end
+
   private
 
   def self.get_global_config

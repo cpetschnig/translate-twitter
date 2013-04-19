@@ -1,3 +1,4 @@
+# check line length
 --style-measure 120
 
 # TODO: reduce this value!

@@ -9,6 +9,7 @@ gem 'omniauth-twitter'
 gem 'ms-translator'
 gem 'constantrecord'
 gem 'blueprint-rails'
+gem 'htmlentities'
 
 group :development, :test do
   gem 'looksee'

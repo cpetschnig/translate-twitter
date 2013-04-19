@@ -20,6 +20,14 @@ describe TwitterAccount do
     end
   end
 
+  describe "mass assignment protection" do
+    it { should allow_mass_assignment_of :username }
+    it { should allow_mass_assignment_of :consumer_key }
+    it { should allow_mass_assignment_of :consumer_secret }
+    it { should allow_mass_assignment_of :access_token }
+    it { should allow_mass_assignment_of :access_secret }
+  end
+
   describe "validations" do
     it { should ensure_length_of(:image_url).is_at_most(128) }
     it { should ensure_length_of(:real_name).is_at_most(32) }
@@ -105,6 +113,14 @@ describe TwitterAccount do
       its(:followers) { should == 15_000_001 }
       its(:friends) { should == 7 }
       its(:statuses) { should == 3 }
+    end
+  end
+
+  describe "#tweet" do
+    it "should use the oauth tokens of the twitter account" do
+      client = mock(:update => nil)
+      TwitterClient.should_receive(:for_user).with(subject).and_return client
+      subject.tweet("foo")
     end
   end
 end

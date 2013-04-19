@@ -59,7 +59,14 @@ ActiveAdmin.register TwitterAccount do
 
   form do |f|
     f.inputs "Details" do
-      f.input :username
+      if action_name == "new"
+        f.input :username
+      elsif action_name == "edit"
+        f.input :consumer_key
+        f.input :consumer_secret
+        f.input :access_token
+        f.input :access_secret
+      end
     end
     f.actions
   end

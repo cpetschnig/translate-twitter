@@ -6,6 +6,8 @@ class TwitterAccount < ActiveRecord::Base
   scope :consumers, where(:can_publish => false)
   scope :publishers, where(:can_publish => true)
 
+  attr_accessible :username, :consumer_key, :consumer_secret, :access_token, :access_secret
+
   validates :username, :uniqueness => true
   validates :image_url, :length => {:maximum => 128}
   validates :real_name, :length => {:maximum => 32}
@@ -26,11 +28,7 @@ class TwitterAccount < ActiveRecord::Base
   # Sets :since_id to the Id of the newest tweet.
   # Returns new tweets.
   def fetch_tweets
-    options = {}
-    options[:since_id] = self.since_id if self.since_id
-    result = TwitterClient.global.user_timeline(self.username, options)
-
-    result.map { |obj| Tweet.from_twitter(obj) }.tap do |tweets|
+    fetch_new_tweets_from_twitter.tap do |tweets|
       if tweets.present?
         self.since_id = tweets.map(&:twitter_id).max
         self.tweets << tweets
@@ -39,6 +37,8 @@ class TwitterAccount < ActiveRecord::Base
     end
   end
 
+  # Sync data from remote twitter with local object
+  # TODO: reduce complexity for cane!
   def update_user_data
     result = TwitterClient.global.user(self.username)
 
@@ -53,5 +53,22 @@ class TwitterAccount < ActiveRecord::Base
     self.statuses = result.statuses_count
 
     save
+  end
+
+  # Publish a status update (tweet) the given text
+  def tweet(text)
+    coder = HTMLEntities.new
+    TwitterClient.for_user(self).update(coder.decode(text[0,140]))
+  end
+
+  private
+
+  def fetch_new_tweets_from_twitter
+    options = {}
+    options[:since_id] = self.since_id if self.since_id
+
+    TwitterClient.global.user_timeline(self.username, options).map do |raw_tweet|
+      Tweet.from_twitter(raw_tweet)
+    end
   end
 end
