@@ -17,7 +17,7 @@ namespace :twitter do
     logger.auto_flushing = true
     Rails.logger = logger
     logger.info '** Starting rake twitter:tweet_translation '.ljust(80, '*')
-    TranslationJob.tweet_translation
+    TranslationJob.fetch_translate_and_tweet
     logger.info '** Finished. '.ljust(80, '*')
   end
 end

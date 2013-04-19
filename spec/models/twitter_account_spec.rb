@@ -83,6 +83,16 @@ describe TwitterAccount do
       Tweet.stub(:from_twitter).and_return new_tweet
       subject.fetch_tweets.should == [ new_tweet ]
     end
+
+    it "should store the tweets oldest first" do
+      new_tweet_0 = Tweet.new(:twitter_id => 85)
+      new_tweet_1 = Tweet.new(:twitter_id => 77)
+      new_tweet_2 = Tweet.new(:twitter_id => 61)
+
+      subject.stub(:fetch_new_tweets_from_twitter).and_return [new_tweet_0, new_tweet_1, new_tweet_2]
+      subject.fetch_tweets
+      subject.tweets.last(3).should == [new_tweet_2, new_tweet_1, new_tweet_0]
+    end
   end
 
   describe "#update_user_data" do

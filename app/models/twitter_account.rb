@@ -31,7 +31,7 @@ class TwitterAccount < ActiveRecord::Base
     fetch_new_tweets_from_twitter.tap do |tweets|
       if tweets.present?
         self.since_id = tweets.map(&:twitter_id).max
-        self.tweets << tweets
+        self.tweets << tweets.sort_by { |tweet| tweet.twitter_id }
         save
       end
     end
@@ -58,7 +58,7 @@ class TwitterAccount < ActiveRecord::Base
   # Publish a status update (tweet) the given text
   def tweet(text)
     coder = HTMLEntities.new
-    text_out = coder.decode(replace_at_signs(text)[0,140])
+    text_out = coder.decode(replace_at_chars(text)[0,140])
     TwitterClient.for_user(self).update(text_out)
   end
 
@@ -73,7 +73,8 @@ class TwitterAccount < ActiveRecord::Base
     end
   end
 
-  def replace_at_signs(text)
+  # Replace '@' chars
+  def replace_at_chars(text)
     text.gsub(/@([a-zA-Z0-9_])/, '°\1')
   end
 end
