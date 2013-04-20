@@ -62,6 +62,11 @@ class TwitterAccount < ActiveRecord::Base
     TwitterClient.for_user(self).update(text_out)
   end
 
+  # Retweet an existing tweet
+  def retweet(tweet)
+    TwitterClient.for_user(self).retweet(tweet.twitter_id)
+  end
+
   private
 
   def fetch_new_tweets_from_twitter

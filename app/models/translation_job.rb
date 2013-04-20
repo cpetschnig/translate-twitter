@@ -54,7 +54,7 @@ class TranslationJob < ActiveRecord::Base
       if tweet.needs_translation? #&& tweet.was_translated?
         target.tweet(translation)
       else
-        # retweet original
+        target.retweet(tweet)
       end
     end
   end

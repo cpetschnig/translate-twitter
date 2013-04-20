@@ -171,13 +171,21 @@ describe TranslationJob do
 
       it "should not send the text of the tweet to the Microsoft Translator" do
         subject.source.stub(:fetch_tweets).and_return [tweet]
+        subject.target.stub(:retweet)
         Microsoft.should_not_receive(:Translator).with(tweet.text, nil, nil)
         subject.fetch_translate_and_tweet
       end
 
       it "should not store the translation with the tweet" do
         subject.source.stub(:fetch_tweets).and_return [tweet]
+        subject.target.stub(:retweet)
         tweet.should_not_receive(:store_translation).with("some translation", anything)
+        subject.fetch_translate_and_tweet
+      end
+
+      it "should retweet the tweet" do
+        subject.source.stub(:fetch_tweets).and_return [tweet]
+        subject.target.should_receive(:retweet).with(tweet)
         subject.fetch_translate_and_tweet
       end
     end

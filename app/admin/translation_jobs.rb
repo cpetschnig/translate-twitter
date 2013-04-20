@@ -22,4 +22,8 @@ ActiveAdmin.register TranslationJob do
     translation_job.fetch_translate_and_tweet
     redirect_to collection_path, :notice => "Translations were tweeted."
   end
+
+  controller do
+    def edit; end
+  end
 end

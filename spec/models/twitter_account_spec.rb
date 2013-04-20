@@ -140,4 +140,19 @@ describe TwitterAccount do
       subject.tweet("guilty @m_seki @ yotii23 @sferik?")
     end
   end
+
+  describe "#retweet" do
+    it "should use the oauth tokens of the twitter account" do
+      client = mock.as_null_object
+      TwitterClient.should_receive(:for_user).with(subject).and_return client
+      subject.retweet(Tweet.new)
+    end
+
+    it "should call the :retweet method on the client object" do
+      client = mock
+      client.should_receive(:retweet).with(1337)
+      TwitterClient.stub(:for_user).and_return client
+      subject.retweet(mock(:twitter_id => 1337))
+    end
+  end
 end

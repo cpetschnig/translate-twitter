@@ -70,4 +70,8 @@ ActiveAdmin.register TwitterAccount do
     end
     f.actions
   end
+
+  controller do
+    def edit; end
+  end
 end
