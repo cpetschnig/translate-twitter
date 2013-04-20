@@ -28,10 +28,10 @@ class TwitterAccount < ActiveRecord::Base
   # Sets :since_id to the Id of the newest tweet.
   # Returns new tweets.
   def fetch_tweets
-    fetch_new_tweets_from_twitter.tap do |tweets|
+    fetch_new_tweets_from_twitter.sort_by { |tweet| tweet.twitter_id }.tap do |tweets|
       if tweets.present?
         self.since_id = tweets.map(&:twitter_id).max
-        self.tweets << tweets.sort_by { |tweet| tweet.twitter_id }
+        self.tweets << tweets
         save
       end
     end
