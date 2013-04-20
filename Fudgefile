@@ -1,4 +1,5 @@
 build :default do
   task :cane
+  rake "db:setup RAILS_ENV=test"
   task :rspec
 end

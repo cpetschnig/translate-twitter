@@ -1,11 +1,15 @@
 == Translate Twitter
 
+{<img src="https://api.travis-ci.org/cpetschnig/translate-twitter.png?branch=master" />}[http://travis-ci.org/#!/cpetschnig/translate-twitter]
+{<img src="https://codeclimate.com/github/cpetschnig/translate-twitter.png" />}[https://codeclimate.com/github/cpetschnig/translate-twitter]
+{<img src="https://gemnasium.com/cpetschnig/translate-twitter.png" alt="Dependency Status" />}[https://gemnasium.com/cpetschnig/translate-twitter]
+
 Application is running at http://tera.cc/
 
 === Environment
 
 * Ruby 2.0.0
-* Rails 3.2.12
+* Rails 3.2.13
 
 === Install admin user
 

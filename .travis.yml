@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 2.0.0
+bundler_args: --binstubs
+script: bin/fudge build
+before_install:
+  - cp config/database.example.yml config/database.yml
+  - cp config/ms-translator.example.yml config/ms-translator.yml
+  - cp config/twitter-oauth.example.yml config/twitter-oauth.yml
