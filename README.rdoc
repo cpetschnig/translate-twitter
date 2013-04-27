@@ -17,13 +17,13 @@ Application is running at http://tera.cc/
 After the setup of the database, you need to manually create a new admin user.
 Go to the Rails console and do the following with your own credentials:
 
-u = AdminUser.new
-u.email = "a@bc.de"
-u.password = "Your password"
-u.uid = 12345678
-u.token = "Your twitter access token"
-u.token_secret = "Your twitter access token secret"
-u.save
+  u = AdminUser.new
+  u.email = "a@bc.de"
+  u.password = "Your password"
+  u.uid = 12345678
+  u.token = "Your twitter access token"
+  u.token_secret = "Your twitter access token secret"
+  u.save
 
 === Install a new cron job:
 
