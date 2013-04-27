@@ -23,6 +23,7 @@ group :test do
   gem 'guard-rspec'
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
+  gem 'coveralls', :require => false
 end
 
 group :assets do

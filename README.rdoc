@@ -3,6 +3,7 @@
 {<img src="https://api.travis-ci.org/cpetschnig/translate-twitter.png?branch=master" />}[http://travis-ci.org/#!/cpetschnig/translate-twitter]
 {<img src="https://codeclimate.com/github/cpetschnig/translate-twitter.png" />}[https://codeclimate.com/github/cpetschnig/translate-twitter]
 {<img src="https://gemnasium.com/cpetschnig/translate-twitter.png" alt="Dependency Status" />}[https://gemnasium.com/cpetschnig/translate-twitter]
+{<img src="https://coveralls.io/repos/cpetschnig/translate-twitter/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/cpetschnig/translate-twitter]
 
 Application is running at http://tera.cc/
 
