@@ -1,5 +1,6 @@
 build :default do
   task :cane
   rake "db:setup RAILS_ENV=test"
-  task :rspec
+  shell "bundle exec rails runner --environment=test db/test_seeds.rb"
+  task :rspec, :coverage => 100
 end
