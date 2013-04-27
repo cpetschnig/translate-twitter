@@ -2,6 +2,8 @@ require "spec_helper"
 
 describe Tweet do
 
+  it { should be_a FormattedTweet }
+
   describe "associations" do
     it { should belong_to :user }
     it { should have_many :translations }

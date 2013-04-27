@@ -1,6 +1,8 @@
 # A Tweet that is also stored at twitter.com
 class Tweet < ActiveRecord::Base
 
+  include FormattedTweet
+
   belongs_to :user, :class_name => "TwitterAccount"
   has_many :translations, :class_name => "TranslatedTweet" do
     # (pre-)load associations for a little performance boost

@@ -2,6 +2,8 @@
 class TranslatedTweet < ActiveRecord::Base
   self.table_name = "tweet_translations"
 
+  include FormattedTweet
+
   belongs_to :tweet
 
   before_save :repair_translation
