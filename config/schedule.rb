@@ -1,4 +1,4 @@
-set :output, File.expand_path("../../logs/cron_log.log", __FILE__)
+set :output, File.expand_path("../../log/cron_log.log", __FILE__)
 
 every 2.minutes do
    rake "twitter:tweet_translation"
