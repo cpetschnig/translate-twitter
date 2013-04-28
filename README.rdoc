@@ -7,11 +7,6 @@
 
 Application is running at http://tera.cc/
 
-=== Environment
-
-* Ruby 2.0.0
-* Rails 3.2.13
-
 === Install admin user
 
 After the setup of the database, you need to manually create a new admin user.
@@ -25,15 +20,6 @@ Go to the Rails console and do the following with your own credentials:
   u.token_secret = "Your twitter access token secret"
   u.save
 
-=== Install a new cron job:
+=== Install cron jobs via whenever:
 
-  $> crontab -e
-
-Append the following line to the crontab:
-
-  */5 *  *   *   *     cd /path/to/app/translate-twitter && /path/to/ruby/bin/rake twitter:translate --silent > /dev/null
-
-This will run the rake task every 5 minutes and will only write STDERR into
-/var/mail/username. The rake output of "(in /path/to/app/translate-twitter)"
-will be suppressed.
-
+  $ bundle exec whenever --write-crontab

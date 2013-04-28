@@ -10,6 +10,7 @@ gem 'ms-translator'
 gem 'constantrecord'
 gem 'blueprint-rails'
 gem 'htmlentities'
+gem 'whenever', :require => false
 
 group :development, :test do
   gem 'looksee'
