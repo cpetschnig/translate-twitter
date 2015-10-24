@@ -1,7 +1,7 @@
 source 'https://rubygems.org/'
-ruby '2.0.0'
+ruby '2.2.3'
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '~> 3.2.22'
 gem 'mysql2'
 gem 'twitter', :require => false
 gem 'activeadmin'
@@ -11,12 +11,16 @@ gem 'constantrecord'
 gem 'blueprint-rails'
 gem 'htmlentities'
 gem 'whenever', :require => false
+gem 'devise'
 
 group :development, :test do
+  gem 'test-unit'
   gem 'looksee'
   gem 'pry'
   gem 'cane'
   gem 'fudge'
+  gem 'sqlite3'
+  gem 'webmock'
 end
 
 group :test do
