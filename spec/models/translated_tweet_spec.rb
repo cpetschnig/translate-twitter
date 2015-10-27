@@ -2,19 +2,19 @@ require "spec_helper"
 
 describe TranslatedTweet do
 
-  it { should be_a FormattedTweet }
+  it { expect(subject).to be_a FormattedTweet }
 
   describe "associations" do
-    it { should belong_to :tweet }
+    it { expect(subject).to belong_to :tweet }
   end
 
   describe "validations" do
-    it { should ensure_length_of(:text).is_at_most(512) }
+    it { expect(subject).to validate_length_of(:text).is_at_most(512) }
   end
 
   describe "mass assignment protection" do
-    it { should allow_mass_assignment_of :text }
-    it { should allow_mass_assignment_of :service_id }
+    it { expect(subject).to allow_mass_assignment_of :text }
+    it { expect(subject).to allow_mass_assignment_of :service_id }
   end
 
   describe "#repair_translation" do
@@ -25,7 +25,7 @@ describe TranslatedTweet do
 
     it "should remove spaces in usernames" do
       subject.save
-      subject.text.should == "@nzkoz @steveklabnik @_dozen_ @_ko1 @n0kada."
+      expect(subject.text).to eq("@nzkoz @steveklabnik @_dozen_ @_ko1 @n0kada.")
     end
   end
 end

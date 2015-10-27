@@ -14,14 +14,14 @@ describe FormattedTweet do
     context "on http URLs" do
       it "should wrap URLs into <a> tags" do
         subject.text = "foo bar http://foo.bar"
-        subject.formatted.should == %|foo bar <a href="http://foo.bar">http://foo.bar</a>|
+        expect(subject.formatted).to eq(%|foo bar <a href="http://foo.bar">http://foo.bar</a>|)
       end
     end
 
     context "on https URLs" do
       it "should wrap URLs into <a> tags" do
         subject.text = "foo bar https://foo.bar"
-        subject.formatted.should == %|foo bar <a href="https://foo.bar">https://foo.bar</a>|
+        expect(subject.formatted).to eq(%|foo bar <a href="https://foo.bar">https://foo.bar</a>|)
       end
     end
   end
