@@ -39,7 +39,7 @@ set :linked_dirs, %w{files log pids tmp/cache public/assets public/uploads db/ba
 # set :keep_releases, 5
 
 set :rbenv_type, :system
-set :rbenv_ruby, '2.2.2'
+set :rbenv_ruby, '2.2.3'
 
 # capistrano3-unicorn
 set :unicorn_pid, '/srv/translate_twitter/shared/pids/unicorn.pid'
