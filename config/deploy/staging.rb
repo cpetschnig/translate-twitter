@@ -23,7 +23,7 @@ set :ssh_options, {
   port: 40922
 }
 
-set :unicorn_config_path, '/srv/twitter_translate/current/config/unicorn/staging.rb'
+set :unicorn_config_path, '/srv/translate_twitter/current/config/unicorn/staging.rb'
 
 # Custom SSH Options
 # ==================
