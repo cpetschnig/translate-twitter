@@ -215,6 +215,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   twitter_config = YAML::load(File.read(Rails.root + "config/twitter-oauth.yml"))
   config.omniauth :twitter, twitter_config["consumer_key"], twitter_config["consumer_secret"]
+  config.secret_key = 'e460441b890d7c137db8776f1849a992190fa6ca92f50a051446ba498b91b705474717a069127006a675b0eec097a805da682b1530d3ae095f76c271efebc579'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
