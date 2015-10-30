@@ -30,6 +30,11 @@ group :development, :test do
   gem 'capistrano3-unicorn', require: false
 end
 
+group :production do
+  # Use unicorn as the app server
+  gem 'unicorn'
+end
+
 group :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
