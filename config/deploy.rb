@@ -54,8 +54,6 @@ namespace :deploy do
     end
     # invoke 'logs:production_cycle'
     invoke 'unicorn:reload'
-    invoke 'delayed_job:restart'
-    invoke 'notify_rollbar'
   end
 
   after :publishing, :restart
