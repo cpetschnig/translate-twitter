@@ -11,9 +11,9 @@ gem 'blueprint-rails'
 gem 'htmlentities'
 gem 'whenever', :require => false
 gem 'devise'
+gem 'test-unit'
 
 group :development, :test do
-  gem 'test-unit'
   gem 'looksee'
   gem 'pry'
   gem 'cane'
