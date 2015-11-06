@@ -26,7 +26,7 @@ class Tweet < ActiveRecord::Base
   end
 
   # Store a new translation
-  def store_translation(translation, service_id)
+  def store_translation(translation, service_id=0)
     translations.create(:text => translation, :service_id => service_id)
   end
 

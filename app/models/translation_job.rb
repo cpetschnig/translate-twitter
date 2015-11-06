@@ -31,11 +31,10 @@ class TranslationJob < ActiveRecord::Base
   # Fetches the new tweets of the source account, translates them to the target
   # language using the Microsoft Translator and stores the translations.
   def fetch_and_translate
-    ms_translator_service = Service.find_by_symbol(:microsoft)
     source.fetch_tweets.each do |tweet|
       if tweet.needs_translation?
         translation = translator.translate(tweet.text, from: from_lang, to: to_lang)
-        tweet.store_translation(translation, ms_translator_service.id)
+        tweet.store_translation(translation)
       end
     end
   end
@@ -43,12 +42,11 @@ class TranslationJob < ActiveRecord::Base
   # Fetches the new tweets of the source account, translates them to the target
   # language using the Microsoft Translator and stores the translations.
   def fetch_translate_and_tweet
-    ms_translator_service = Service.find_by_symbol(:microsoft)
     source.fetch_tweets.each do |tweet|
       translation = nil
       if tweet.needs_translation?
         translation = translator.translate(tweet.text, from: from_lang, to: to_lang)
-        tweet.store_translation(translation, ms_translator_service.id)
+        tweet.store_translation(translation)
       end
 
       if tweet.needs_translation? #&& tweet.was_translated?
