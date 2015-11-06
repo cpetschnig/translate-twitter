@@ -18,9 +18,9 @@ class Tweet < ActiveRecord::Base
   def self.from_twitter(obj)
     self.new(:text => obj.text,
              :twitter_id => obj.id,
-             :irt_screen_name => obj.in_reply_to_screen_name,
+             :irt_screen_name => obj.in_reply_to_screen_name.to_s,
              :irt_user_id => obj.in_reply_to_user_id,
-             :irt_status_id => obj.in_reply_to_status_id,
+             :irt_status_id => obj.in_reply_to_status_id.to_s,
              :source => obj.source,
              :tw_created_at => obj.created_at)
   end
