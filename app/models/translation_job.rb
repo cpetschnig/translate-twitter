@@ -34,7 +34,7 @@ class TranslationJob < ActiveRecord::Base
     ms_translator_service = Service.find_by_symbol(:microsoft)
     source.fetch_tweets.each do |tweet|
       if tweet.needs_translation?
-        translation = Microsoft::Translator(tweet.text, from_lang, to_lang)
+        translation = translator.translate(tweet.text, from: from_lang, to: to_lang)
         tweet.store_translation(translation, ms_translator_service.id)
       end
     end
@@ -47,7 +47,7 @@ class TranslationJob < ActiveRecord::Base
     source.fetch_tweets.each do |tweet|
       translation = nil
       if tweet.needs_translation?
-        translation = Microsoft::Translator(tweet.text, from_lang, to_lang)
+        translation = translator.translate(tweet.text, from: from_lang, to: to_lang)
         tweet.store_translation(translation, ms_translator_service.id)
       end
 
@@ -57,5 +57,11 @@ class TranslationJob < ActiveRecord::Base
         target.retweet(tweet)
       end
     end
+  end
+
+  private
+
+  def translator
+    @translator ||= BingTranslator.new(Rails.configuration.bing_client_id, Rails.configuration.bing_client_secret)
   end
 end
