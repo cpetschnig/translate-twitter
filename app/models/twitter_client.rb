@@ -10,7 +10,7 @@ class TwitterClient
 
     twitter_config = get_global_config
 
-    @global = Twitter::Client.new(
+    @global = Twitter::REST::Client.new(
       :consumer_key => twitter_config["consumer_key"],
       :consumer_secret => twitter_config["consumer_secret"],
       :oauth_token => twitter_config["global_access_token"],
@@ -20,7 +20,7 @@ class TwitterClient
 
   # Returns the client for user-specific (write) actions.
   def self.for_user(user)
-    Twitter::Client.new(
+    Twitter::REST::Client.new(
       :consumer_key => user.consumer_key,
       :consumer_secret => user.consumer_secret,
       :oauth_token => user.access_token,

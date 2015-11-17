@@ -5,7 +5,7 @@ gem 'mysql2', '~> 0.3.10'
 gem 'twitter', :require => false
 gem 'activeadmin'
 gem 'omniauth-twitter'
-gem 'ms-translator'
+gem 'bing_translator'
 gem 'constantrecord'
 gem 'blueprint-rails'
 gem 'htmlentities'
