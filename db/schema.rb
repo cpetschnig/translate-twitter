@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151118171007) do
+ActiveRecord::Schema.define(:version => 20151118172027) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20151118171007) do
     t.integer  "twitter_id",      :limit => 8
     t.string   "text"
     t.string   "irt_screen_name"
-    t.integer  "irt_user_id"
+    t.integer  "irt_user_id",     :limit => 5
     t.string   "irt_status_id"
     t.string   "contributors"
     t.string   "source"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(:version => 20151118171007) do
 
   create_table "twitter_accounts", :force => true do |t|
     t.string   "username"
-    t.integer  "user_id"
+    t.integer  "user_id",            :limit => 5
     t.string   "password"
     t.string   "since_id"
     t.datetime "created_at",                        :null => false
