@@ -11,10 +11,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = "Logged in Successfully"
       sign_in_and_redirect user
     else
-      puts omni["uid"]
-      puts omni["credentials"].token
-      puts omni["credentials"].secret
-      #redirect_to new_user_registration_path
+      redirect_to new_user_registration_path
     end
   end
 end
