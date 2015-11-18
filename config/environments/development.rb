@@ -36,4 +36,9 @@ TranslateTwitter::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.bing_client_id = ''
+  config.bing_client_secret = ''
+
+  config.rollbar_access_token = ''
 end

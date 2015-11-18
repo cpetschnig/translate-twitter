@@ -69,4 +69,6 @@ TranslateTwitter::Application.configure do
 
   config.bing_client_id = ''
   config.bing_client_secret = ''
+
+  config.rollbar_access_token = ''
 end

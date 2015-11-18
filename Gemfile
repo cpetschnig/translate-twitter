@@ -12,6 +12,7 @@ gem 'htmlentities'
 gem 'whenever', :require => false
 gem 'devise'
 gem 'test-unit'
+gem 'rollbar', '~> 2.4.0'
 
 group :development, :test do
   gem 'looksee'
