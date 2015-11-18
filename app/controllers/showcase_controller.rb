@@ -18,12 +18,13 @@ class ShowcaseController < ApplicationController
 
   # GET /:username
   def show_user
-    @user = TwitterAccount.find_by_username(params[:username])
-    @tweets = Tweet.where(:user_id => @user.id).limit(20).order("twitter_id DESC")
+    if @user = TwitterAccount.find_by_username(params[:username])
+      @tweets = Tweet.where(:user_id => @user.id).limit(20).order("twitter_id DESC")
 
-    respond_to do |format|
-      format.html { render :action => 'index' }
-      format.xml  { render :xml => @showcase }
+      respond_to do |format|
+        format.html { render :action => 'index' }
+        format.xml  { render :xml => @showcase }
+      end
     end
   end
 
