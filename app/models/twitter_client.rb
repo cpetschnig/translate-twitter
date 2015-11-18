@@ -20,12 +20,12 @@ class TwitterClient
 
   # Returns the client for user-specific (write) actions.
   def self.for_user(user)
-    Twitter::REST::Client.new do |config|
-      config.consumer_key        = user.consumer_key
-      config.consumer_secret     = user.consumer_secret
-      config.access_token        = user.access_token
-      config.access_token_secret = user.access_secret
-    end
+    Twitter::REST::Client.new(
+      :consumer_key => user.consumer_key,
+      :consumer_secret => user.consumer_secret,
+      :oauth_token => user.access_token,
+      :oauth_token_secret => user.access_secret
+    )
   end
 
   private
