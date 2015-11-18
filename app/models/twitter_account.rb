@@ -43,8 +43,6 @@ class TwitterAccount < ActiveRecord::Base
     result = TwitterClient.global.user(self.username)
 
     self.user_id = result.id
-    self.location = result.location
-    self.description = result.description
     self.created_at_twitter = result.created_at
     self.real_name = result.name
     self.followers = result.followers_count
