@@ -6,5 +6,5 @@ TranslateTwitter::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  match ':username' => 'showcase#show_user'
+  #match ':username' => 'showcase#show_user'
 end

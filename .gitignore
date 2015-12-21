@@ -20,3 +20,5 @@ config/ms-translator.yml
 
 # Ignore SimpleCov results
 coverage/
+
+/db/*.sqlite3

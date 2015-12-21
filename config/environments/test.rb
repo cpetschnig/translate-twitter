@@ -34,4 +34,9 @@ TranslateTwitter::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.bing_client_id = ''
+  config.bing_client_secret = ''
+
+  config.rollbar_access_token = ''
 end

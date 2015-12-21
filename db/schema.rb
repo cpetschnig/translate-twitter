@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418084548) do
+ActiveRecord::Schema.define(:version => 20151118172027) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -29,28 +29,28 @@ ActiveRecord::Schema.define(:version => 20130418084548) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                :default => "", :null => false
-    t.string   "encrypted_password",   :default => "", :null => false
+    t.string   "email",                             :default => "", :null => false
+    t.string   "encrypted_password",                :default => "", :null => false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",        :default => 0
+    t.integer  "sign_in_count",                     :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.integer  "uid"
+    t.integer  "uid",                  :limit => 5
     t.string   "token"
     t.string   "token_secret"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   add_index "admin_users", ["uid"], :name => "index_admin_users_on_uid", :unique => true
 
   create_table "ms_languages", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "translation_jobs", :force => true do |t|
@@ -59,16 +59,16 @@ ActiveRecord::Schema.define(:version => 20130418084548) do
     t.string   "from_lang"
     t.string   "to_lang"
     t.boolean  "active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tweet_translations", :force => true do |t|
     t.integer  "tweet_id"
     t.integer  "service_id"
     t.string   "text",       :limit => 512
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   add_index "tweet_translations", ["tweet_id"], :name => "index_tweet_translations_on_tweet_id"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20130418084548) do
     t.integer  "twitter_id",      :limit => 8
     t.string   "text"
     t.string   "irt_screen_name"
-    t.integer  "irt_user_id"
+    t.integer  "irt_user_id",     :limit => 5
     t.string   "irt_status_id"
     t.string   "contributors"
     t.string   "source"
@@ -87,19 +87,19 @@ ActiveRecord::Schema.define(:version => 20130418084548) do
     t.boolean  "status"
     t.string   "json"
     t.datetime "tw_created_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "tweets", ["twitter_id"], :name => "index_tweets_on_twitter_id"
 
   create_table "twitter_accounts", :force => true do |t|
     t.string   "username"
-    t.integer  "user_id"
+    t.integer  "user_id",            :limit => 5
     t.string   "password"
     t.string   "since_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.boolean  "can_publish"
     t.string   "image_url",          :limit => 128
     t.string   "real_name",          :limit => 32
